@@ -1,36 +1,36 @@
-#
-# This example demonstrates how to read a series of dicom images
-# and how to scroll with the mousewheel or the up/down keys
-# through all slices
-#
-# some standard vtk headers
+import sys, os
+from vtkmodules.vtkIOImage import vtkDICOMImageReader
+from vtkmodules.util.misc import vtkGetDataRoot
+from vtkmodules.vtkCommonMath import vtkMatrix4x4
+from vtkmodules.vtkImagingCore import vtkImageReslice, vtkImageMapToColors
+from vtkmodules.vtkInteractionImage import vtkResliceImageViewer
+from vtkmodules.vtkRenderingCore import vtkTextProperty, vtkTextMapper,\
+    vtkActor2D, vtkRenderWindowInteractor, vtkCoordinate, vtkImageActor
+from vtkmodules.vtkInteractionStyle import vtkInteractorStyleImage
+from vtkmodules import vtkRenderingVolumeOpenGL2
+from vtkmodules.vtkImagingColor import vtkImageMapToWindowLevelColors
+from vtkmodules.vtkCommonDataModel import vtkImageData
+from vtkmodules.vtkRenderingImage import vtkImageStack
+from vtkmodules.vtkCommonCore import vtkLookupTable
 
-
-import vtk
-import sys
-from vtk.util.misc import vtkGetDataRoot
-from vtk.vtkIOKitPython import vtkDICOMImageReader
-from math import pi
       
 def main():
     VTK_DATA_ROOT = vtkGetDataRoot()
     folder = "/Users/nandana/Downloads/image_ex"
+    
     #read dicom files from specified directory
     reader = vtkDICOMImageReader()
     reader.SetDirectoryName(folder)
     reader.SetFilePrefix(VTK_DATA_ROOT + "/Data/headsq/quarter")
    
-    #reader.SetDataExtent(0, 63, 0, 63, 1, 93)
-    #reader.SetDataSpacing(3.2, 3.2, 1.5)
+    reader.SetDataExtent(0, 63, 0, 63, 1, 93)
+    reader.SetDataSpacing(3.2, 3.2, 1.5)
     reader.SetDataOrigin(-150.0, 150.0, 3.0)
     reader.SetDataScalarTypeToUnsignedShort()
     reader.UpdateWholeExtent()
 
     # Calculate the center of the volume
     reader.Update()
-    print(reader.GetOutput().GetScalarComponentAsDouble(511,511,5,0))
-    print(reader.GetOutput().GetSpacing())
-    print(reader.GetOutput().GetOrigin())
         
     (xMin, xMax, yMin, yMax, zMin, zMax) = reader.GetExecutive().GetWholeExtent(reader.GetOutputInformation(0))
     (xSpacing, ySpacing, zSpacing) = reader.GetOutput().GetSpacing()
@@ -40,150 +40,180 @@ def main():
               y0 + ySpacing * 0.5 * (yMin + yMax),
               z0 + zSpacing * 0.5 * (zMin + zMax)]
     yd = ((yMax-yMin) + 1)*ySpacing
-    
+    """
     # Matrices for axial, coronal, sagittal, oblique view orientations
-    axial = vtk.vtkMatrix4x4()
+    axial = vtkMatrix4x4()
     axial.DeepCopy((1, 0, 0, center[0],
-                0, 1, 0, center[1],
-                0, 0, 1, center[2],
-                0, 0, 0, 1))
+                    0, 1, 0, center[1],
+                    0, 0, 1, center[2],
+                    0, 0, 0, 1))
 
-    coronal = vtk.vtkMatrix4x4()
+    coronal = vtkMatrix4x4()
     coronal.DeepCopy((1, 0, 0, center[0],
-                  0, 0, 1, center[1],
-                  0,-1, 0, center[2],
-                  0, 0, 0, 1))
+                      0, 0, 1, center[1],
+                      0,-1, 0, center[2],
+                      0, 0, 0, 1))
 
-    sagittal = vtk.vtkMatrix4x4()
+    sagittal = vtkMatrix4x4
     sagittal.DeepCopy((0, 0,-1, center[0],
-                   1, 0, 0, center[1],
-                   0,-1, 0, center[2],
-                   0, 0, 0, 1))
+                       1, 0, 0, center[1],
+                       0,-1, 0, center[2],
+                       0, 0, 0, 1))
 
-    oblique = vtk.vtkMatrix4x4()
+    oblique = vtkMatrix4x4()
     oblique.DeepCopy((1, 0, 0, center[0],
-                  0, 0.866025, -0.5, center[1],
-                  0, 0.5, 0.866025, center[2],
-                  0, 0, 0, 1))
+                      0, 0.866025, -0.5, center[1],
+                      0, 0.5, 0.866025, center[2],
+                      0, 0, 0, 1))
     
-    reslice = vtk.vtkImageReslice()
-    reslice.SetInputConnection(reader.GetOutputPort())
+    reslice = vtkImageReslice()
+    outputPort = reader.GetOutputPort()
+    #reslice.SetInputConnection(reader.GetOutputPort())
+    reslice.SetInputConnection(0, reader.GetOutputPort())
+    print(reader.GetOutput().GetExtent())
+    reslice.SetOutputExtent(reader.GetOutput().GetExtent())
     reslice.SetOutputDimensionality(2)
     reslice.SetResliceAxes(coronal)
     reslice.SetInterpolationModeToLinear()
     
-    
+    """
     # Visualize
-    imageViewer = vtk.vtkResliceImageViewer()
+    imageViewer = vtkResliceImageViewer()
+    imageViewer.SetSliceOrientationToXY()
+    #imageViewer.SetSlice(9)
+        
     imageViewer.SetResliceModeToAxisAligned()
     imageViewer.SliceScrollOnMouseWheelOff()
     imageViewer.SetInputData(reader.GetOutput())
+    
+    #imageViewer.Render()
     camera = imageViewer.GetRenderer().GetActiveCamera()
     
+    print(camera.GetOrientationWXYZ())
+    
     # slice status message
-    sliceTextProp = vtk.vtkTextProperty()
+    sliceTextProp = vtkTextProperty()
     sliceTextProp.SetFontFamilyToCourier()
     sliceTextProp.SetFontSize(20)
     sliceTextProp.SetVerticalJustificationToBottom()
     sliceTextProp.SetJustificationToLeft()
-    sliceTextMapper = vtk.vtkTextMapper()
+    sliceTextMapper = vtkTextMapper()
     msg = "Slice {} out of {}".format(imageViewer.GetSlice() + 1, \
                                      imageViewer.GetSliceMax() + 1)
     sliceTextMapper.SetInput(msg)
     sliceTextMapper.SetTextProperty(sliceTextProp)
 
-    sliceTextActor = vtk.vtkActor2D()
+    sliceTextActor = vtkActor2D()
     sliceTextActor.SetMapper(sliceTextMapper)
     sliceTextActor.SetPosition(100, 10)
-    
+
     # coordinate display
-    coordTextProp = vtk.vtkTextProperty()
+    coordTextProp = vtkTextProperty()
     coordTextProp.SetFontFamilyToCourier()
     coordTextProp.SetFontSize(20)
     coordTextProp.SetVerticalJustificationToBottom()
     coordTextProp.SetJustificationToLeft()
     
-    coordTextMapper = vtk.vtkTextMapper()
+    coordTextMapper = vtkTextMapper()
     coordTextMapper.SetInput("Pixel Coordinates: (--, --)")
     coordTextMapper.SetTextProperty(coordTextProp)
 
-    coordTextActor = vtk.vtkActor2D()
+    coordTextActor = vtkActor2D()
     coordTextActor.SetMapper(coordTextMapper)
     coordTextActor.SetPosition(500, 10)
     
-    
-    worldCoordTextProp = vtk.vtkTextProperty()
+    worldCoordTextProp = vtkTextProperty()
     worldCoordTextProp.SetFontFamilyToCourier()
     worldCoordTextProp.SetFontSize(20)
     worldCoordTextProp.SetVerticalJustificationToBottom()
     worldCoordTextProp.SetJustificationToLeft()
     
-    worldCoordTextMapper = vtk.vtkTextMapper()
+    worldCoordTextMapper = vtkTextMapper()
     worldCoordTextMapper.SetInput("World Coordinates: (--, --)")
     worldCoordTextMapper.SetTextProperty(worldCoordTextProp)
     
-    worldCoordTextActor = vtk.vtkActor2D()
+    worldCoordTextActor = vtkActor2D()
     worldCoordTextActor.SetMapper(worldCoordTextMapper)
-    coordTextActor.SetPosition(500, 30)
+    worldCoordTextActor.SetPosition(500, 30)
     
     # usage hint message
-    usageTextProp = vtk.vtkTextProperty()
+    usageTextProp = vtkTextProperty()
     usageTextProp.SetFontFamilyToCourier()
     usageTextProp.SetFontSize(14)
     usageTextProp.SetVerticalJustificationToTop()
     usageTextProp.SetJustificationToLeft()
 
-    usageTextMapper = vtk.vtkTextMapper()
+    usageTextMapper = vtkTextMapper()
     usageTextMapper.SetInput("- Slice with mouse wheel\n- Zoom with pressed right\n  mouse button while dragging\n- Press i to toggle cursor line on/off")
     usageTextMapper.SetTextProperty(usageTextProp)
 
-    usageTextActor = vtk.vtkActor2D()
+    usageTextActor = vtkActor2D()
     usageTextActor.SetMapper(usageTextMapper)
     usageTextActor.GetPositionCoordinate().SetCoordinateSystemToNormalizedDisplay()
     usageTextActor.GetPositionCoordinate().SetValue( 0.05, 0.95)
 
     actor = imageViewer.GetImageActor()
-    #print(actor.TransformPhysicalPointToContinuousIndex(0, 0, 0))
-    propPicker = vtk.vtkPropPicker()
-    propPicker.PickFromListOn()
-    propPicker.AddPickList(actor)
+    #image = vtkImageActor()
+    #actor.GetMapper().SetInputData(reader.GetOutput())
     
-    #actor.InterpolateOff()
+    image = imageViewer.GetInput()
     
+    roiData = vtkImageData()
+    roiImage = vtkImageActor()
     
-    coordinate = vtk.vtkCoordinate()
-    coordinate.SetCoordinateSystemToNormalizedDisplay()
-    coordinate.SetValue(0, 0, 0)
-    coord1 = coordinate.GetComputedDisplayValue(imageViewer.GetRenderer())
-    print(coord1)
+    roiData.DeepCopy(image)
+    extent = roiData.GetExtent()
+    
+    for i in range(extent[0], extent[1]):
+        for j in range(extent[2], extent[3]):
+            for k in range(extent[4], extent[5]+1):
+                if image.GetScalarComponentAsDouble(i, j, k, 0) > -100:
+                    roiData.SetScalarComponentFromDouble(i, j, k, 0, 1)
+                else:   #just in case
+                    roiData.SetScalarComponentFromDouble(i, j, k, 0, 0.0)
+    
+    print(extent)
+    
+    table = vtkLookupTable()
+    table.SetNumberOfTableValues(2)
+    table.SetRange(0.0,1.0)
+    table.SetTableValue(0, 0.0, 0.0, 0.0, 0.0)
+    table.SetTableValue(1, 0.0, 1.0, 0.0, 1.0)
+    table.Build()
+    
+    mapToColor = vtkImageMapToColors()
+    mapToColor.SetLookupTable(table)
+    mapToColor.PassAlphaToOutputOn()
+    
+    mapToColor.SetInputData(image)
+    
+    roiImage.GetMapper().SetInputConnection(mapToColor.GetOutputPort())
+    
+    imageViewer.SetInputData(image)
 
-    interactorStyle = vtk.vtkInteractorStyleImage()
-    # vtkInteractorStyleImage() by default does everything
-    # that the program is currently doing EXCEPT FOR SLICING A and the i thing
+    interactorStyle = vtkInteractorStyleImage()
+    interactor = vtkRenderWindowInteractor()
     
-    interactor = vtk.vtkRenderWindowInteractor()
-
     imageViewer.SetupInteractor(interactor)
     interactor.SetInteractorStyle(interactorStyle)
-    interactor.SetPicker(propPicker)
-    
+
     # add slice status message and usage hint message to the renderer
     imageViewer.GetRenderer().AddActor2D(coordTextActor)
     imageViewer.GetRenderer().AddActor2D(sliceTextActor)
     imageViewer.GetRenderer().AddActor2D(usageTextActor)
     imageViewer.GetRenderer().AddActor2D(worldCoordTextActor)
     
-    
-    #imageViewer.GetRenderer().AddActor2D(testTextActor)
-    
+    imageViewer.GetRenderer().AddActor2D(roiImage)
+    #imageViewer.GetRenderer().AddViewProp(stack)
 
     # initialize rendering and interaction
     imageViewer.GetRenderWindow().SetSize(1000, 1000)        
     imageViewer.GetRenderer().SetBackground(0.2, 0.3, 0.4)
 
     imageViewer.GetWindowLevel().SetWindow(1000)
-    imageViewer.GetWindowLevel().SetLevel(-1000)    
- 
+    imageViewer.GetWindowLevel().SetLevel(-1000)  
+    
+
     imageViewer.Render()
     
     yd = (yMax-yMin + 1)*ySpacing
@@ -198,8 +228,10 @@ def main():
     actions["Dolly"] = -1
     actions["Cursor"] = 0
     
-
     def middlePressCallback(obj, event):
+        # if middle + ctrl pressed, zoom in/out
+        # otherwise slice through image (handled by mouseMoveCallback)
+        
         if(interactor.GetControlKey()):
             actions["Dolly"] = 0
             interactorStyle.OnRightButtonDown()
@@ -210,9 +242,12 @@ def main():
             interactorStyle.OnRightButtonUp()
         elif(actions["Dolly"] == 1):
             actions["Dolly"] = 0
+            
     def mouseMoveCallback(obj, event):
-        
-        if(actions["Dolly"] == 1):
+        # if the middle button is pressed + mouse is moved, slice through image
+        # otherwise, update world/pixel coords as mouse is moved
+
+        if(actions["Dolly"] == 1):            
             (lastX, lastY) = interactor.GetLastEventPosition()
             (curX, curY) = interactor.GetEventPosition()
             deltaY = curY - lastY
@@ -227,61 +262,62 @@ def main():
             sliceTextMapper.SetInput(msg)
             imageViewer.Render()
         
-        else:    
-            (mouseX, mouseY) = interactor.GetEventPosition()
-            propPicker.Pick(mouseX, mouseY, pi, imageViewer.GetRenderer())
-            
-            """
-            currently there is a bug that causes the image to flicker when mouseX and mouseY when getting
-            world coordinates. to enable this feature, uncomment the line above
-            """
-            
-            (posX, posY, posZ) = propPicker.GetPickPosition()
-            
-            
-            ## assumption that pi > world coords will never be 0
-            
-            if(posZ != 0):
-                (mouseX, mouseY) = interactor.GetEventPosition()
-                mousePos = "World Coordinates: (" + str(int(posX)) + ", " + str(int(posY)) + ", " + str(int(posZ)) + ")"
-                worldCoordTextMapper.SetInput(mousePos)
-            
-                #(posX, posY, posZ) = reader.GetOutput().TransformPhysicalPointToContinuousIndex(posX, posY, posZ)
-                #mousePos = "Pixel Coordinates: (" + str(int(posX)) + ", " + str(int(posY)) + ", " + str(int(posZ)) + ")"
-                #coordTextMapper.SetInput(mousePos)
+        else:   
+             
+            (mouseX, mouseY) = interactor.GetEventPosition()            
+            bounds = actor.GetMapper().GetInput().GetBounds()
                 
-            ## replace posZ w/something else also this is WORLD coordinates
-            ## ultimately will b in the imageviewer 
+            testCoord = vtkCoordinate()
+            testCoord.SetCoordinateSystemToDisplay()
+            testCoord.SetValue(mouseX, mouseY, 0);
             
-            ## positions --> format to float w/2 decimal places
+            (posX, posY, posZ) = testCoord.GetComputedWorldValue(imageViewer.GetRenderer())
             
-            #imageViewer.Render()
+            inBounds = True;
+            if posX < bounds[0] or posX > bounds[1] or posY < bounds[2] or posY > bounds[3]:
+                inBounds = False
+                                    
+            if inBounds:
+                wMousePos = "World Coordinates: (" + "{:.2f}".format(posX) + ", " + "{:.2f}".format(posY) + ", " + "{:.2f}".format(posZ) + ")"
+                pMousePos = "Pixel Coordinates: (" + "{:.2f}".format(mouseX) + ", " + "{:.2f}".format(mouseY) + ")"
+                worldCoordTextMapper.SetInput(wMousePos)
+                coordTextMapper.SetInput(pMousePos)
+                
+                imageViewer.Render()
+
             interactorStyle.OnMouseMove()
+  
             
     def scrollForwardCallback(obj, event):
-        
+        # slice through image on scroll, update slice text
+    
         imageViewer.IncrementSlice(1)
         
         msg = "Slice {} out of {}".format(imageViewer.GetSlice() + 1, \
                                      imageViewer.GetSliceMax() + 1)
         sliceTextMapper.SetInput(msg)
         imageViewer.Render()  
+        
     def scrollBackwardCallback(obj, event):
         imageViewer.IncrementSlice(-1)
+        
         msg = "Slice {} out of {}".format(imageViewer.GetSlice() + 1, \
                                      imageViewer.GetSliceMax() + 1)
         sliceTextMapper.SetInput(msg)
         imageViewer.Render()
+        
     def windowModifiedCallback(obj, event):
         # track render window width so coordinate text aligns itself
         # to the right side of the screen
-        width = imageViewer.GetRenderWindow().GetSize()[0]
-        coordTextActor.SetPosition(width-450, 10)
-        worldCoordTextActor.SetPosition(width-450, 30)
         
-        #print(border.GetRepresentation().GetPosition())
+        width = imageViewer.GetRenderWindow().GetSize()[0]
+        coordTextActor.SetPosition(width-550, 10)
+        worldCoordTextActor.SetPosition(width-550, 30)
+        
         imageViewer.Render()
     def keyPressCallback(obj, event):
+        # toggle cursor on/off when t key is pressed
+        
         key = interactor.GetKeySym()
         if(key == "t"):
             if(actions["Cursor"] == 0):
@@ -289,8 +325,8 @@ def main():
                 actions["Cursor"] = 1
             elif(actions["Cursor"] == 1):
                 imageViewer.GetRenderWindow().ShowCursor()
-                actions["Cursor"] = 0
-    
+                actions["Cursor"] = 0  
+                
     interactorStyle.AddObserver("MiddleButtonPressEvent", middlePressCallback)
     interactorStyle.AddObserver("MiddleButtonReleaseEvent", middleReleaseCallback)
     interactorStyle.AddObserver("MouseMoveEvent", mouseMoveCallback)
