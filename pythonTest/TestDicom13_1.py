@@ -147,7 +147,7 @@ def main():
     usageTextActor = vtkActor2D()
     usageTextActor.SetMapper(usageTextMapper)
     usageTextActor.GetPositionCoordinate().SetCoordinateSystemToNormalizedDisplay()
-    usageTextActor.GetPositionCoordinate().SetValue( 0.05, 0.95)
+    usageTextActor.GetPositionCoordinate().SetValue(0.05, 0.95)
 
     actor = imageViewer.GetImageActor()
     #image = vtkImageActor()
@@ -209,19 +209,19 @@ def main():
     imageViewer.GetRenderer().SetBackground(0.2, 0.3, 0.4)
 
     imageViewer.GetWindowLevel().SetWindow(1000)
-    imageViewer.GetWindowLevel().SetLevel(-1000)  
+    imageViewer.GetWindowLevel().SetLevel(-1000)
     
 
     imageViewer.Render()
     
     yd = (yMax-yMin + 1)*ySpacing
     xd = (xMax-xMin + 1)*xSpacing
-    
+
     d = camera.GetDistance()
-    camera.SetParallelScale(0.5*xd)   
+    camera.SetParallelScale(0.5*(xMax-xMin + 1)*xSpacing)
     camera.SetFocalPoint(center[0],center[1], 0)
     camera.SetPosition(center[0],center[1],+d)
-    
+
     actions = {}
     actions["Dolly"] = -1
     actions["Cursor"] = 0
@@ -260,8 +260,7 @@ def main():
             sliceTextMapper.SetInput(msg)
             imageViewer.Render()
         
-        else:   
-             
+        else:
             (mouseX, mouseY) = interactor.GetEventPosition()            
             bounds = actor.GetMapper().GetInput().GetBounds()
                 
