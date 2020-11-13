@@ -18,7 +18,8 @@ from vtkmodules.vtkRenderingCore import vtkImageActor, vtkRenderer, \
     vtkRenderWindow, vtkRenderWindowInteractor, vtkCoordinate, vtkTextProperty, vtkTextMapper, vtkActor2D
 from vtkmodules.vtkInteractionStyle import vtkInteractorStyleImage
 from vtkmodules.vtkCommonDataModel import vtkImageData
-from math import floor
+from math import floor, sqrt
+from timeit import default_timer as timer
 
 VTK_DATA_ROOT = vtkGetDataRoot()
 folder = "/Users/nandana/Downloads/image_ex"
@@ -108,6 +109,7 @@ for i in range(extent[0], extent[1]):
                 roiData.SetScalarComponentFromDouble(i, j, k, 0, 0.0)
                 #roiData.SetScalarComponentFromDouble(0, i, j, k, 0.0)
 """
+print(extent)
 
 print("creating LookupTable...")
 
@@ -261,6 +263,9 @@ load(original, actor, 0.5, (700, 1000), 1000, 200, (169.66796875, 169.66796875, 
 actions = {}
 actions["Slicing"] = 0
 actions["Cursor"] = 0
+actions["CurrentPos"] = -1
+actions["LastPos"] = -1
+actions["DoubleClick"] = 0
 
 def IncrementSlice(inc, resliceAxes):
     global center
@@ -378,12 +383,34 @@ def KeyPressCallback(obj, event):
             window.ShowCursor()
             actions["Cursor"] = 0
 
+def LeftDoubleClickCallback(obj, event):
+    print("clicking")
+
+def LeftPressCallback(obj, event):
+    diff = None
+    actions["CurrentPos"] = timer()
+
+    if actions["LastPos"] != -1:
+        diff = actions["CurrentPos"] - actions["LastPos"]
+
+    if diff is not None and diff < 0.5: # valid double click
+        print("double clicked")
+        print(center)
+
+    actions["LastPos"] = actions["CurrentPos"]
+
+    interactorStyle.OnLeftButtonDown()
+
+
+
 interactorStyle.AddObserver("MouseWheelForwardEvent", ScrollForwardCallback)
 interactorStyle.AddObserver("MouseWheelBackwardEvent", ScrollBackwardCallback)
 interactorStyle.AddObserver("MiddleButtonPressEvent", ButtonCallback)
 interactorStyle.AddObserver("MiddleButtonReleaseEvent", ButtonCallback)
 interactorStyle.AddObserver("MouseMoveEvent", MouseMoveCallback)
 interactorStyle.AddObserver("KeyPressEvent", KeyPressCallback)
+interactorStyle.AddObserver("LeftButtonDoubleClickEvent", LeftDoubleClickCallback)
+interactorStyle.AddObserver("LeftButtonPressEvent", LeftPressCallback)
 window.AddObserver("ModifiedEvent", WindowModifiedCallback)
 
 #interactorStyle.AddObserver("MouseWheelForwardEvent", ButtonCallback2)
