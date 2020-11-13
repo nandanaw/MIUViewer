@@ -20,37 +20,6 @@ from vtkmodules.vtkInteractionStyle import vtkInteractorStyleImage
 from vtkmodules.vtkCommonDataModel import vtkImageData
 from math import floor
 
-class MIUViewer:
-    def __init__(self):
-        self.window_level = vtkImageMapToWindowLevelColors()
-        self.renderer = vtkRenderer()
-        self.window = vtkRenderWindow()
-        #self.center =
-
-# window size should be a "constant"
-def load(img, roi, alpha, window_size, window, level, center, self_renderer,
-         self_window, self_window_level, self_center, self_matrix):
-    self_renderer.RemoveAllViewProps()
-    self_renderer.AddActor(img)
-    self_renderer.AddActor(roi)
-    self_window.SetSize(window_size)
-    roi.SetOpacity(alpha)
-    self_window_level.SetWindow(window)
-    self_window_level.SetLevel(level)
-    self_center[0] = center[0]
-    self_center[1] = center[1]
-    self_center[2] = center[2]
-    self_matrix.SetElement(0, 3, self_center[0])
-    self_matrix.SetElement(1, 3, self_center[1])
-    self_matrix.SetElement(2, 3, self_center[2])
-    self_window.Render()
-
-"""
-Load 
-   > param1 - imageA, roi1, alpha, window size, window/level, initial center
-
-"""
-
 VTK_DATA_ROOT = vtkGetDataRoot()
 folder = "/Users/nandana/Downloads/image_ex"
 
@@ -255,17 +224,38 @@ windowLevel.Update()
 
 window.Render()
 
+# window size should be a "constant"
+def load(img, roi, alpha, window_size, window_val, level_val, n_center):
+    renderer.RemoveAllViewProps()
+    renderer.AddActor(img)
+    renderer.AddActor(roi)
+    window.SetSize(window_size)
+    roi.SetOpacity(alpha)
+    windowLevel.SetWindow(window_val)
+    windowLevel.SetLevel(level_val)
+    center[0] = n_center[0]
+    center[1] = n_center[1]
+    center[2] = n_center[2]
+    reslice.GetResliceAxes().SetElement(0, 3, center[0])
+    reslice.GetResliceAxes().SetElement(1, 3, center[1])
+    reslice.GetResliceAxes().SetElement(2, 3, center[2])
+    window.Render()
 
+"""
+Load 
+   > param1 - imageA, roi1, alpha, window size, window/level, initial center
+
+"""
+
+"""
 input()
 print("Loading params 1")
-load(original, actor, 0.0, (500, 500), 1000, -1000, (169.66796875, 169.66796875, 107.0),
-     renderer, window, windowLevel, center, reslice.GetResliceAxes())
+load(original, actor, 0.0, (500, 500), 1000, -1000, (169.66796875, 169.66796875, 107.0))
 
 input()
 print("Loading params 2")
-load(original, actor, 0.5, (700, 1000), 1000, 200, (169.66796875, 169.66796875, 0.0),
-     renderer, window, windowLevel, center, reslice.GetResliceAxes())
-
+load(original, actor, 0.5, (700, 1000), 1000, 200, (169.66796875, 169.66796875, 0.0))
+"""
 
 # Create callbacks for slicing the image
 actions = {}
@@ -387,7 +377,6 @@ def KeyPressCallback(obj, event):
         elif(actions["Cursor"] == 1):
             window.ShowCursor()
             actions["Cursor"] = 0
-
 
 interactorStyle.AddObserver("MouseWheelForwardEvent", ScrollForwardCallback)
 interactorStyle.AddObserver("MouseWheelBackwardEvent", ScrollBackwardCallback)
