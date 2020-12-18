@@ -6,8 +6,8 @@
 # and vtkInteractorStyleImage to display the image.  This InteractorStyle
 # forces the camera to stay perpendicular to the XY plane.
 
-import sys, os
-import vtk
+import sys
+import numpy as np
 from vtkmodules.vtkIOImage import vtkDICOMImageReader
 from vtkmodules.util.misc import vtkGetDataRoot
 from vtkmodules.vtkCommonMath import vtkMatrix4x4
@@ -21,6 +21,7 @@ from vtkmodules.vtkCommonDataModel import vtkImageData
 from math import floor, sqrt
 from timeit import default_timer as timer
 
+Z_SLICE = None
 VTK_DATA_ROOT = vtkGetDataRoot()
 folder = "/Users/nandana/Downloads/image_ex"
 
@@ -40,6 +41,43 @@ reader.Update()
 (xSpacing, ySpacing, zSpacing) = reader.GetOutput().GetSpacing()
 (x0, y0, z0) = reader.GetOutput().GetOrigin()
 
+dirMatrix = reader.GetOutput().GetDirectionMatrix()
+dirMatrix2 = np.array(dirMatrix)
+pointIn = np.array((1, 1, 1))
+pointOut = np.array((0, 0, 0))
+
+pointIn2 = np.array((10, 20, 30, 1))
+pointOut2 = np.array((0, 0, 0, 1))
+
+dirMatrix.MultiplyPoint(pointIn, pointOut)
+print(pointIn)
+print(pointOut)
+print(type(pointOut))
+
+directionMatrix = vtkMatrix4x4()
+for j, spacing in enumerate((xSpacing, ySpacing, zSpacing)):
+    for i in range(3):
+        directionMatrix.SetElement(i, j, dirMatrix.GetElement(i, j)*spacing)
+
+directionMatrix.SetElement(3, 3, 1)
+
+for i, v in enumerate((1, 2, 3, 1)):
+#for i, v in enumerate((x0, y0, z0, 1)):
+    directionMatrix.SetElement(i, 3, v)
+
+print(directionMatrix)
+
+directionMatrix.MultiplyPoint(pointIn2, pointOut2)
+print(pointIn2)
+print(pointOut2)
+print(type(pointOut2))
+
+# need to get the real origin (world coords is not (0,0,0))
+# make the output of the coord transformation a float --> 2 decimal points when printing
+
+#input()
+#print(dirMatrix2 * point)
+
 print((xMin, xMax, yMin, yMax, zMin, zMax))
 print((xSpacing, ySpacing, zSpacing))
 print((x0, y0, z0))
@@ -47,6 +85,9 @@ print((x0, y0, z0))
 center = [x0 + xSpacing * 0.5 * (xMin + xMax),
           y0 + ySpacing * 0.5 * (yMin + yMax),
           z0 + zSpacing * 0.5 * (zMin + zMax)]
+
+Z_OFFSET = 0
+
 print(center)
 
 # Matrices for axial, coronal, sagittal, oblique view orientations
@@ -96,7 +137,6 @@ roiData.DeepCopy(image)
 extent = roiData.GetExtent()
 
 print("generating ROI...")
-
 """
 for i in range(extent[0], extent[1]):
     for j in range(extent[2], extent[3]):
@@ -108,8 +148,8 @@ for i in range(extent[0], extent[1]):
             else:   #just in case
                 roiData.SetScalarComponentFromDouble(i, j, k, 0, 0.0)
                 #roiData.SetScalarComponentFromDouble(0, i, j, k, 0.0)
-"""
 print(extent)
+"""
 
 print("creating LookupTable...")
 
@@ -210,8 +250,6 @@ window = vtkRenderWindow()
 window.AddRenderer(renderer)
 window.SetSize(1000, 1000)
 
-renderer.SetBackground(0.2, 0.3, 0.4)
-
 # Set up the interaction
 interactorStyle = vtkInteractorStyleImage()
 interactorStyle.SetInteractionModeToImageSlicing()
@@ -244,12 +282,6 @@ def load(img, roi, alpha, window_size, window_val, level_val, n_center):
     window.Render()
 
 """
-Load 
-   > param1 - imageA, roi1, alpha, window size, window/level, initial center
-
-"""
-
-"""
 input()
 print("Loading params 1")
 load(original, actor, 0.0, (500, 500), 1000, -1000, (169.66796875, 169.66796875, 107.0))
@@ -260,15 +292,11 @@ load(original, actor, 0.5, (700, 1000), 1000, 200, (169.66796875, 169.66796875, 
 """
 
 # Create callbacks for slicing the image
-actions = {}
-actions["Slicing"] = 0
-actions["Cursor"] = 0
-actions["CurrentPos"] = -1
-actions["LastPos"] = -1
-actions["DoubleClick"] = 0
+actions = {"Slicing": 0, "Cursor": 0, "CurrentPos": -1, "LastPos": -1, "DoubleClick": 0}
 
 def IncrementSlice(inc, resliceAxes):
-    global center
+    global center, Z_SLICE
+
     xInc = yInc = zInc = 0
     upperBound = lowerBound = 0
     i = -1
@@ -285,6 +313,10 @@ def IncrementSlice(inc, resliceAxes):
         zInc = inc*zSpacing
         upperBound = floor(zMax*zSpacing)
         i = 2
+
+        #if Z_SLICE is not None and Z_SLICE < upperBound:
+            #Z_SLICE += zInc
+
     elif resliceAxes == oblique:
         pass
     else:
@@ -315,22 +347,35 @@ def ButtonCallback3(obj, event):
         actions["Slicing"] = 0
 
 def MouseMoveCallback(obj, event):
+    global Z_SLICE
+
     (mouseX, mouseY) = interactor.GetEventPosition()
     bounds = actor.GetMapper().GetInput().GetBounds()
+    #print(bounds)
+
+    #if Z_SLICE is None:
+    #    Z_SLICE = 0
 
     testCoord = vtkCoordinate()
     testCoord.SetCoordinateSystemToDisplay()
-    testCoord.SetValue(mouseX, mouseY, 0);
+    testCoord.SetValue(mouseX, mouseY, 0) # TODO: set 3rd val to slice num
+    (posX, posY, _) = testCoord.GetComputedWorldValue(renderer)
+    posZ = center[2]
 
-    (posX, posY, posZ) = testCoord.GetComputedWorldValue(renderer)
+    """
+    - compute offset b/w img actor and display w/ difference of origins --> actor.GetOrigin()
+    - figure out size of img actor (just xy) --> 1st & 2nd param of extent
+    - (mousePos-offset) / or * by ratio
+        - make img fill viewer --> only squares
+    """
 
     inBounds = True;
     if posX < bounds[0] or posX > bounds[1] or posY < bounds[2] or posY > bounds[3]:
         inBounds = False
 
     if inBounds:
-        wMousePos = "World Coordinates: (" + "{:.2f}".format(posX) + ", " + "{:.2f}".format(posY) + ", " + "{:.2f}".format(posZ) + ")"
-        pMousePos = "Pixel Coordinates: (" + "{:.2f}".format(mouseX) + ", " + "{:.2f}".format(mouseY) + ")"
+        wMousePos = "Pixel Coordinates: (" + "{:d}".format(int((posX+center[0])/xSpacing)) + ", " + "{:d}".format(int((posY+center[1])/ySpacing)) + ", " + "{:d}".format(int(posZ-Z_OFFSET)) + ")"
+        pMousePos = "??? Coordinates: (" + "{:.2f}".format(mouseX) + ", " + "{:.2f}".format(mouseY) + ")"
         worldCoordTextMapper.SetInput(wMousePos)
         coordTextMapper.SetInput(pMousePos)
 
@@ -348,6 +393,7 @@ def ScrollForwardCallback(obj, event):
 
     #print("scrolling forward....")
     #print(center)
+    MouseMoveCallback(obj, event)
     window.Render()
 
 def ScrollBackwardCallback(obj, event):
@@ -360,6 +406,8 @@ def ScrollBackwardCallback(obj, event):
 
     #print("scrolling backward....")
     #print(center)
+
+    MouseMoveCallback(obj, event)
     window.Render()
 
 def WindowModifiedCallback(obj, event):
@@ -401,8 +449,6 @@ def LeftPressCallback(obj, event):
 
     interactorStyle.OnLeftButtonDown()
 
-
-
 interactorStyle.AddObserver("MouseWheelForwardEvent", ScrollForwardCallback)
 interactorStyle.AddObserver("MouseWheelBackwardEvent", ScrollBackwardCallback)
 interactorStyle.AddObserver("MiddleButtonPressEvent", ButtonCallback)
@@ -417,4 +463,5 @@ window.AddObserver("ModifiedEvent", WindowModifiedCallback)
 #interactorStyle.AddObserver("MouseWheelBackwardEvent", ButtonCallback3)
 
 # Start interaction
+
 interactor.Start()
