@@ -4,9 +4,11 @@ An application for visualizing and parsing through DICOM image files.
 
 All updated code is in the pythonTest folder, and the different versions are organized as thus follows:
 
-TestDicom12 -- The initial version, which can display an image and slice through it. This code is buggy, and the slicing function breaks down after using it, but this viewer can display the image from different orientations when the program is run, and is the only version thus far that can do so. 
+**TestDicom 15 -- Creates the MIUViewer class, most of my future work will go into this file. This version has the same functionality as TestDicom12, so it will eventually replace that file in this repository. 
 
-TestDicom13 -- Same as TestDicom13_1, but with an ROI overlay over the original image. The overlay currently only displays over the first slice of the image, and disappears for every other slice. The functionalities in terms of key bindings are also the same as TestDicomm13_1, but the window/leveling only works on the first slice.
+TestDicom12 -- Version that can display the image + the ROI overlay and slice through both of them simeultaneously. 
+
+TestDicom13 -- Same as TestDicom13_1, but with an ROI overlay over the original image. The overlay currently only displays over the first slice of the image, and disappears for every other slice. The functionalities in terms of key bindings are also the same as TestDicom13_1, but the window/leveling only works on the first slice.
 
 TestDicom13_1 -- The basic viewer with various features in terms of interacting with an image (slicing through, window/leveling, zooming in/out, moving the image). This version also displays current world and pixel coordinates based on the location of the cursor, as well as the current slice number. Currently, this viewer cannot view an image from different orientations.
 
