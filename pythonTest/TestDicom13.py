@@ -308,8 +308,7 @@ def main():
                 imageViewer.Render()
 
             interactorStyle.OnMouseMove()
-  
-            
+
     def scrollForwardCallback(obj, event):
         # slice through image on scroll, update slice text
     
