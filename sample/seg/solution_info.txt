@@ -1,0 +1,1861 @@
+SolElement: nodule
+Attribute: SearchArea: PartOf
+Related SolElement: nodule_filtered
+End: PartOf
+Attribute: InfParam: MatchAboveConf
+Confidence_threshold: 0.01
+End: MatchAboveConf
+Attribute: MemParam: RetainCands
+End: RetainCands
+Num_Cands: 3
+Num_Matched_Cands: 3
+Candidate_start
+Type: ImageRegion
+FeatureValue: 0 0 0
+ConfidenceScore: 2 2 2
+PartialConfidence: 1
+Matched: True
+RoiFile: nodule-0_m.roi
+Candidate_end
+Candidate_start
+Type: ImageRegion
+FeatureValue: 0 0 0
+ConfidenceScore: 2 2 2
+PartialConfidence: 1
+Matched: True
+RoiFile: nodule-1_m.roi
+Candidate_end
+Candidate_start
+Type: ImageRegion
+FeatureValue: 0 0 0
+ConfidenceScore: 2 2 2
+PartialConfidence: 1
+Matched: True
+RoiFile: nodule-2_m.roi
+Candidate_end
+MatchedPrimitiveRoiFile: nodule.roi
+
+SolElement: nodule_filtered
+Attribute: SegParam: SameCandidatesAs
+Related SolElement: nodule_pre_filter
+End: SameCandidatesAs
+Attribute: Feature: AvgDiameterInSliceThicknesses
+Fuzzy: [(0, 0, 0)(1.5, 1, 0)]
+End: AvgDiameterInSliceThicknesses
+Attribute: InfParam: MatchAboveConf
+Confidence_threshold: 0.99
+End: MatchAboveConf
+Num_Cands: 0
+Num_Matched_Cands: 0
+MatchedPrimitiveRoiFile: nodule_filtered.roi
+
+SolElement: nodule_pre_filter
+Attribute: SearchArea: Clear
+End: Clear
+Attribute: SearchArea: PartOf
+Related SolElement: nodule_8mm
+End: PartOf
+Attribute: SearchArea: PartOf
+Related SolElement: sd_nodule_4mm_radlogics
+End: PartOf
+Attribute: SearchArea: PartOf
+Related SolElement: isolated_nodule
+End: PartOf
+Attribute: InfParam: MatchAboveConf
+Confidence_threshold: 0.01
+End: MatchAboveConf
+Num_Cands: 0
+Num_Matched_Cands: 0
+MatchedPrimitiveRoiFile: nodule_pre_filter.roi
+
+SolElement: isolated_nodule
+Attribute: SegParam: ThreshRangeGL
+GL_range: -600 to 2000
+End: ThreshRangeGL
+Attribute: SearchArea: PartOf
+Related SolElement: lung_filled_init
+End: PartOf
+Attribute: Feature: Volume
+Fuzzy: [(0, 0, 0)(14, 1, 0)(500, 1, 0)(4000, 0, 0)]
+End: Volume
+Attribute: Feature: AvgDiameter
+Fuzzy: [(0, 0, 0)(2.5, 1, 0)]
+End: AvgDiameter
+Attribute: Feature: CircularityAtMaxDia
+Fuzzy: [(0, 0, 0)(40, 1, 0)]
+End: CircularityAtMaxDia
+Attribute: Feature: Overlaps
+Related SolElement: sd_nodule_4mm_opacity
+Fuzzy: [(0, 0, 0)(1, 1, 0)]
+End: Overlaps
+Attribute: SegParam: MinNumVoxels
+Min_num_voxels: 5
+End: MinNumVoxels
+Attribute: InfParam: MatchAboveConf
+Confidence_threshold: 0.99
+End: MatchAboveConf
+Num_Cands: 0
+Num_Matched_Cands: 0
+MatchedPrimitiveRoiFile: isolated_nodule.roi
+
+SolElement: sd_nodule_4mm_radlogics
+Attribute: SearchArea: PartOf
+Related SolElement: sd_nodule_4mm
+End: PartOf
+Attribute: Feature: RadLogicsNoduleClassification
+Fuzzy: [(0, 0, 0)(1, 1, 0)]
+End: RadLogicsNoduleClassification
+Attribute: InfParam: MatchAboveConf
+Confidence_threshold: 0.9
+End: MatchAboveConf
+Attribute: MemParam: RetainCands
+End: RetainCands
+Num_Cands: 41
+Num_Matched_Cands: 3
+Candidate_start
+Type: ImageRegion
+FeatureValue: 0 0 0 0
+ConfidenceScore: 2 0 2 2
+PartialConfidence: 0
+Matched: False
+RoiFile: sd_nodule_4mm_radlogics-00.roi
+Candidate_end
+Candidate_start
+Type: ImageRegion
+FeatureValue: 0 0 0 0
+ConfidenceScore: 2 0 2 2
+PartialConfidence: 0
+Matched: False
+RoiFile: sd_nodule_4mm_radlogics-01.roi
+Candidate_end
+Candidate_start
+Type: ImageRegion
+FeatureValue: 0 0 0 0
+ConfidenceScore: 2 0 2 2
+PartialConfidence: 0
+Matched: False
+RoiFile: sd_nodule_4mm_radlogics-02.roi
+Candidate_end
+Candidate_start
+Type: ImageRegion
+FeatureValue: 0 0 0 0
+ConfidenceScore: 2 0 2 2
+PartialConfidence: 0
+Matched: False
+RoiFile: sd_nodule_4mm_radlogics-03.roi
+Candidate_end
+Candidate_start
+Type: ImageRegion
+FeatureValue: 0 0 0 0
+ConfidenceScore: 2 0 2 2
+PartialConfidence: 0
+Matched: False
+RoiFile: sd_nodule_4mm_radlogics-04.roi
+Candidate_end
+Candidate_start
+Type: ImageRegion
+FeatureValue: 0 1 0 0
+ConfidenceScore: 2 1 2 2
+PartialConfidence: 1
+Matched: True
+RoiFile: sd_nodule_4mm_radlogics-05_m.roi
+Candidate_end
+Candidate_start
+Type: ImageRegion
+FeatureValue: 0 0 0 0
+ConfidenceScore: 2 0 2 2
+PartialConfidence: 0
+Matched: False
+RoiFile: sd_nodule_4mm_radlogics-06.roi
+Candidate_end
+Candidate_start
+Type: ImageRegion
+FeatureValue: 0 0 0 0
+ConfidenceScore: 2 0 2 2
+PartialConfidence: 0
+Matched: False
+RoiFile: sd_nodule_4mm_radlogics-07.roi
+Candidate_end
+Candidate_start
+Type: ImageRegion
+FeatureValue: 0 0 0 0
+ConfidenceScore: 2 0 2 2
+PartialConfidence: 0
+Matched: False
+RoiFile: sd_nodule_4mm_radlogics-08.roi
+Candidate_end
+Candidate_start
+Type: ImageRegion
+FeatureValue: 0 0 0 0
+ConfidenceScore: 2 0 2 2
+PartialConfidence: 0
+Matched: False
+RoiFile: sd_nodule_4mm_radlogics-09.roi
+Candidate_end
+Candidate_start
+Type: ImageRegion
+FeatureValue: 0 0 0 0
+ConfidenceScore: 2 0 2 2
+PartialConfidence: 0
+Matched: False
+RoiFile: sd_nodule_4mm_radlogics-10.roi
+Candidate_end
+Candidate_start
+Type: ImageRegion
+FeatureValue: 0 1 0 0
+ConfidenceScore: 2 1 2 2
+PartialConfidence: 1
+Matched: True
+RoiFile: sd_nodule_4mm_radlogics-11_m.roi
+Candidate_end
+Candidate_start
+Type: ImageRegion
+FeatureValue: 0 0 0 0
+ConfidenceScore: 2 0 2 2
+PartialConfidence: 0
+Matched: False
+RoiFile: sd_nodule_4mm_radlogics-12.roi
+Candidate_end
+Candidate_start
+Type: ImageRegion
+FeatureValue: 0 0 0 0
+ConfidenceScore: 2 0 2 2
+PartialConfidence: 0
+Matched: False
+RoiFile: sd_nodule_4mm_radlogics-13.roi
+Candidate_end
+Candidate_start
+Type: ImageRegion
+FeatureValue: 0 0 0 0
+ConfidenceScore: 2 0 2 2
+PartialConfidence: 0
+Matched: False
+RoiFile: sd_nodule_4mm_radlogics-14.roi
+Candidate_end
+Candidate_start
+Type: ImageRegion
+FeatureValue: 0 0 0 0
+ConfidenceScore: 2 0 2 2
+PartialConfidence: 0
+Matched: False
+RoiFile: sd_nodule_4mm_radlogics-15.roi
+Candidate_end
+Candidate_start
+Type: ImageRegion
+FeatureValue: 0 0 0 0
+ConfidenceScore: 2 0 2 2
+PartialConfidence: 0
+Matched: False
+RoiFile: sd_nodule_4mm_radlogics-16.roi
+Candidate_end
+Candidate_start
+Type: ImageRegion
+FeatureValue: 0 0 0 0
+ConfidenceScore: 2 0 2 2
+PartialConfidence: 0
+Matched: False
+RoiFile: sd_nodule_4mm_radlogics-17.roi
+Candidate_end
+Candidate_start
+Type: ImageRegion
+FeatureValue: 0 0 0 0
+ConfidenceScore: 2 0 2 2
+PartialConfidence: 0
+Matched: False
+RoiFile: sd_nodule_4mm_radlogics-18.roi
+Candidate_end
+Candidate_start
+Type: ImageRegion
+FeatureValue: 0 0 0 0
+ConfidenceScore: 2 0 2 2
+PartialConfidence: 0
+Matched: False
+RoiFile: sd_nodule_4mm_radlogics-19.roi
+Candidate_end
+Candidate_start
+Type: ImageRegion
+FeatureValue: 0 0 0 0
+ConfidenceScore: 2 0 2 2
+PartialConfidence: 0
+Matched: False
+RoiFile: sd_nodule_4mm_radlogics-20.roi
+Candidate_end
+Candidate_start
+Type: ImageRegion
+FeatureValue: 0 0 0 0
+ConfidenceScore: 2 0 2 2
+PartialConfidence: 0
+Matched: False
+RoiFile: sd_nodule_4mm_radlogics-21.roi
+Candidate_end
+Candidate_start
+Type: ImageRegion
+FeatureValue: 0 0 0 0
+ConfidenceScore: 2 0 2 2
+PartialConfidence: 0
+Matched: False
+RoiFile: sd_nodule_4mm_radlogics-22.roi
+Candidate_end
+Candidate_start
+Type: ImageRegion
+FeatureValue: 0 0 0 0
+ConfidenceScore: 2 0 2 2
+PartialConfidence: 0
+Matched: False
+RoiFile: sd_nodule_4mm_radlogics-23.roi
+Candidate_end
+Candidate_start
+Type: ImageRegion
+FeatureValue: 0 0 0 0
+ConfidenceScore: 2 0 2 2
+PartialConfidence: 0
+Matched: False
+RoiFile: sd_nodule_4mm_radlogics-24.roi
+Candidate_end
+Candidate_start
+Type: ImageRegion
+FeatureValue: 0 0 0 0
+ConfidenceScore: 2 0 2 2
+PartialConfidence: 0
+Matched: False
+RoiFile: sd_nodule_4mm_radlogics-25.roi
+Candidate_end
+Candidate_start
+Type: ImageRegion
+FeatureValue: 0 0 0 0
+ConfidenceScore: 2 0 2 2
+PartialConfidence: 0
+Matched: False
+RoiFile: sd_nodule_4mm_radlogics-26.roi
+Candidate_end
+Candidate_start
+Type: ImageRegion
+FeatureValue: 0 0 0 0
+ConfidenceScore: 2 0 2 2
+PartialConfidence: 0
+Matched: False
+RoiFile: sd_nodule_4mm_radlogics-27.roi
+Candidate_end
+Candidate_start
+Type: ImageRegion
+FeatureValue: 0 0 0 0
+ConfidenceScore: 2 0 2 2
+PartialConfidence: 0
+Matched: False
+RoiFile: sd_nodule_4mm_radlogics-28.roi
+Candidate_end
+Candidate_start
+Type: ImageRegion
+FeatureValue: 0 0 0 0
+ConfidenceScore: 2 0 2 2
+PartialConfidence: 0
+Matched: False
+RoiFile: sd_nodule_4mm_radlogics-29.roi
+Candidate_end
+Candidate_start
+Type: ImageRegion
+FeatureValue: 0 0 0 0
+ConfidenceScore: 2 0 2 2
+PartialConfidence: 0
+Matched: False
+RoiFile: sd_nodule_4mm_radlogics-30.roi
+Candidate_end
+Candidate_start
+Type: ImageRegion
+FeatureValue: 0 0 0 0
+ConfidenceScore: 2 0 2 2
+PartialConfidence: 0
+Matched: False
+RoiFile: sd_nodule_4mm_radlogics-31.roi
+Candidate_end
+Candidate_start
+Type: ImageRegion
+FeatureValue: 0 0 0 0
+ConfidenceScore: 2 0 2 2
+PartialConfidence: 0
+Matched: False
+RoiFile: sd_nodule_4mm_radlogics-32.roi
+Candidate_end
+Candidate_start
+Type: ImageRegion
+FeatureValue: 0 0 0 0
+ConfidenceScore: 2 0 2 2
+PartialConfidence: 0
+Matched: False
+RoiFile: sd_nodule_4mm_radlogics-33.roi
+Candidate_end
+Candidate_start
+Type: ImageRegion
+FeatureValue: 0 0 0 0
+ConfidenceScore: 2 0 2 2
+PartialConfidence: 0
+Matched: False
+RoiFile: sd_nodule_4mm_radlogics-34.roi
+Candidate_end
+Candidate_start
+Type: ImageRegion
+FeatureValue: 0 0 0 0
+ConfidenceScore: 2 0 2 2
+PartialConfidence: 0
+Matched: False
+RoiFile: sd_nodule_4mm_radlogics-35.roi
+Candidate_end
+Candidate_start
+Type: ImageRegion
+FeatureValue: 0 0 0 0
+ConfidenceScore: 2 0 2 2
+PartialConfidence: 0
+Matched: False
+RoiFile: sd_nodule_4mm_radlogics-36.roi
+Candidate_end
+Candidate_start
+Type: ImageRegion
+FeatureValue: 0 0 0 0
+ConfidenceScore: 2 0 2 2
+PartialConfidence: 0
+Matched: False
+RoiFile: sd_nodule_4mm_radlogics-37.roi
+Candidate_end
+Candidate_start
+Type: ImageRegion
+FeatureValue: 0 0 0 0
+ConfidenceScore: 2 0 2 2
+PartialConfidence: 0
+Matched: False
+RoiFile: sd_nodule_4mm_radlogics-38.roi
+Candidate_end
+Candidate_start
+Type: ImageRegion
+FeatureValue: 0 0 0 0
+ConfidenceScore: 2 0 2 2
+PartialConfidence: 0
+Matched: False
+RoiFile: sd_nodule_4mm_radlogics-39.roi
+Candidate_end
+Candidate_start
+Type: ImageRegion
+FeatureValue: 0 1 0 0
+ConfidenceScore: 2 1 2 2
+PartialConfidence: 1
+Matched: True
+RoiFile: sd_nodule_4mm_radlogics-40_m.roi
+Candidate_end
+MatchedPrimitiveRoiFile: sd_nodule_4mm_radlogics.roi
+
+SolElement: sd_nodule_4mm
+Attribute: SegParam: ThreshRangeGL
+GL_range: -400 to 2000
+End: ThreshRangeGL
+Attribute: SearchArea: MorphDilate
+Related SolElement: sd_nodule_4mm_init1_radlogics
+Structuring Element: Box (-2, -2, -2) (2, 2, 2)
+End: MorphDilate
+Attribute: SearchArea: PartOf
+Related SolElement: lung_init_closed
+End: PartOf
+Attribute: Feature: Volume
+Fuzzy: [(0, 0, 0)(15, 1, 0)(2000, 1, 0)(4000, 0, 0)]
+End: Volume
+Attribute: Feature: SurfaceContactPercentage
+Related SolElement: lung_dilated
+Fuzzy: [(0, 0, 0)(70, 1, 0)]
+End: SurfaceContactPercentage
+Attribute: InfParam: MatchAboveConf
+Confidence_threshold: 0.9
+End: MatchAboveConf
+Attribute: MemParam: RetainCands
+End: RetainCands
+Num_Cands: 45
+Num_Matched_Cands: 41
+Candidate_start
+Type: ImageRegion
+FeatureValue: 0 0 0 47.1038 72.2543 0 0
+ConfidenceScore: 2 2 2 1 1 2 2
+PartialConfidence: 1
+Matched: True
+RoiFile: sd_nodule_4mm-00_m.roi
+Candidate_end
+Candidate_start
+Type: ImageRegion
+FeatureValue: 0 0 0 8.4114 53.8462 0 0
+ConfidenceScore: 2 2 2 0.56076 0.769231 2 2
+PartialConfidence: 0.56076
+Matched: False
+RoiFile: sd_nodule_4mm-01.roi
+Candidate_end
+Candidate_start
+Type: ImageRegion
+FeatureValue: 0 0 0 3.36456 64.7059 0 0
+ConfidenceScore: 2 2 2 0.224304 0.92437 2 2
+PartialConfidence: 0.224304
+Matched: False
+RoiFile: sd_nodule_4mm-02.roi
+Candidate_end
+Candidate_start
+Type: ImageRegion
+FeatureValue: 0 0 0 3.36456 100 0 0
+ConfidenceScore: 2 2 2 0.224304 1 2 2
+PartialConfidence: 0.224304
+Matched: False
+RoiFile: sd_nodule_4mm-03.roi
+Candidate_end
+Candidate_start
+Type: ImageRegion
+FeatureValue: 0 0 0 48.7861 100 0 0
+ConfidenceScore: 2 2 2 1 1 2 2
+PartialConfidence: 1
+Matched: True
+RoiFile: sd_nodule_4mm-04_m.roi
+Candidate_end
+Candidate_start
+Type: ImageRegion
+FeatureValue: 0 0 0 40.3747 100 0 0
+ConfidenceScore: 2 2 2 1 1 2 2
+PartialConfidence: 1
+Matched: True
+RoiFile: sd_nodule_4mm-05_m.roi
+Candidate_end
+Candidate_start
+Type: ImageRegion
+FeatureValue: 0 0 0 48.7861 100 0 0
+ConfidenceScore: 2 2 2 1 1 2 2
+PartialConfidence: 1
+Matched: True
+RoiFile: sd_nodule_4mm-06_m.roi
+Candidate_end
+Candidate_start
+Type: ImageRegion
+FeatureValue: 0 0 0 53.8329 100 0 0
+ConfidenceScore: 2 2 2 1 1 2 2
+PartialConfidence: 1
+Matched: True
+RoiFile: sd_nodule_4mm-07_m.roi
+Candidate_end
+Candidate_start
+Type: ImageRegion
+FeatureValue: 0 0 0 218.696 100 0 0
+ConfidenceScore: 2 2 2 1 1 2 2
+PartialConfidence: 1
+Matched: True
+RoiFile: sd_nodule_4mm-08_m.roi
+Candidate_end
+Candidate_start
+Type: ImageRegion
+FeatureValue: 0 0 0 47.1038 100 0 0
+ConfidenceScore: 2 2 2 1 1 2 2
+PartialConfidence: 1
+Matched: True
+RoiFile: sd_nodule_4mm-09_m.roi
+Candidate_end
+Candidate_start
+Type: ImageRegion
+FeatureValue: 0 0 0 38.6924 100 0 0
+ConfidenceScore: 2 2 2 1 1 2 2
+PartialConfidence: 1
+Matched: True
+RoiFile: sd_nodule_4mm-10_m.roi
+Candidate_end
+Candidate_start
+Type: ImageRegion
+FeatureValue: 0 0 0 67.2912 100 0 0
+ConfidenceScore: 2 2 2 1 1 2 2
+PartialConfidence: 1
+Matched: True
+RoiFile: sd_nodule_4mm-11_m.roi
+Candidate_end
+Candidate_start
+Type: ImageRegion
+FeatureValue: 0 0 0 58.8798 97.7778 0 0
+ConfidenceScore: 2 2 2 1 1 2 2
+PartialConfidence: 1
+Matched: True
+RoiFile: sd_nodule_4mm-12_m.roi
+Candidate_end
+Candidate_start
+Type: ImageRegion
+FeatureValue: 0 0 0 45.4215 100 0 0
+ConfidenceScore: 2 2 2 1 1 2 2
+PartialConfidence: 1
+Matched: True
+RoiFile: sd_nodule_4mm-13_m.roi
+Candidate_end
+Candidate_start
+Type: ImageRegion
+FeatureValue: 0 0 0 63.9266 100 0 0
+ConfidenceScore: 2 2 2 1 1 2 2
+PartialConfidence: 1
+Matched: True
+RoiFile: sd_nodule_4mm-14_m.roi
+Candidate_end
+Candidate_start
+Type: ImageRegion
+FeatureValue: 0 0 0 45.4215 99.3827 0 0
+ConfidenceScore: 2 2 2 1 1 2 2
+PartialConfidence: 1
+Matched: True
+RoiFile: sd_nodule_4mm-15_m.roi
+Candidate_end
+Candidate_start
+Type: ImageRegion
+FeatureValue: 0 0 0 43.7393 100 0 0
+ConfidenceScore: 2 2 2 1 1 2 2
+PartialConfidence: 1
+Matched: True
+RoiFile: sd_nodule_4mm-16_m.roi
+Candidate_end
+Candidate_start
+Type: ImageRegion
+FeatureValue: 0 0 0 30.281 100 0 0
+ConfidenceScore: 2 2 2 1 1 2 2
+PartialConfidence: 1
+Matched: True
+RoiFile: sd_nodule_4mm-17_m.roi
+Candidate_end
+Candidate_start
+Type: ImageRegion
+FeatureValue: 0 0 0 40.3747 100 0 0
+ConfidenceScore: 2 2 2 1 1 2 2
+PartialConfidence: 1
+Matched: True
+RoiFile: sd_nodule_4mm-18_m.roi
+Candidate_end
+Candidate_start
+Type: ImageRegion
+FeatureValue: 0 0 0 79.0671 97.6959 0 0
+ConfidenceScore: 2 2 2 1 1 2 2
+PartialConfidence: 1
+Matched: True
+RoiFile: sd_nodule_4mm-19_m.roi
+Candidate_end
+Candidate_start
+Type: ImageRegion
+FeatureValue: 0 0 0 40.3747 100 0 0
+ConfidenceScore: 2 2 2 1 1 2 2
+PartialConfidence: 1
+Matched: True
+RoiFile: sd_nodule_4mm-20_m.roi
+Candidate_end
+Candidate_start
+Type: ImageRegion
+FeatureValue: 0 0 0 77.3849 100 0 0
+ConfidenceScore: 2 2 2 1 1 2 2
+PartialConfidence: 1
+Matched: True
+RoiFile: sd_nodule_4mm-21_m.roi
+Candidate_end
+Candidate_start
+Type: ImageRegion
+FeatureValue: 0 0 0 42.057 100 0 0
+ConfidenceScore: 2 2 2 1 1 2 2
+PartialConfidence: 1
+Matched: True
+RoiFile: sd_nodule_4mm-22_m.roi
+Candidate_end
+Candidate_start
+Type: ImageRegion
+FeatureValue: 0 0 0 45.4215 100 0 0
+ConfidenceScore: 2 2 2 1 1 2 2
+PartialConfidence: 1
+Matched: True
+RoiFile: sd_nodule_4mm-23_m.roi
+Candidate_end
+Candidate_start
+Type: ImageRegion
+FeatureValue: 0 0 0 58.8798 100 0 0
+ConfidenceScore: 2 2 2 1 1 2 2
+PartialConfidence: 1
+Matched: True
+RoiFile: sd_nodule_4mm-24_m.roi
+Candidate_end
+Candidate_start
+Type: ImageRegion
+FeatureValue: 0 0 0 38.6924 100 0 0
+ConfidenceScore: 2 2 2 1 1 2 2
+PartialConfidence: 1
+Matched: True
+RoiFile: sd_nodule_4mm-25_m.roi
+Candidate_end
+Candidate_start
+Type: ImageRegion
+FeatureValue: 0 0 0 52.1507 98.1707 0 0
+ConfidenceScore: 2 2 2 1 1 2 2
+PartialConfidence: 1
+Matched: True
+RoiFile: sd_nodule_4mm-26_m.roi
+Candidate_end
+Candidate_start
+Type: ImageRegion
+FeatureValue: 0 0 0 45.4215 100 0 0
+ConfidenceScore: 2 2 2 1 1 2 2
+PartialConfidence: 1
+Matched: True
+RoiFile: sd_nodule_4mm-27_m.roi
+Candidate_end
+Candidate_start
+Type: ImageRegion
+FeatureValue: 0 0 0 40.3747 100 0 0
+ConfidenceScore: 2 2 2 1 1 2 2
+PartialConfidence: 1
+Matched: True
+RoiFile: sd_nodule_4mm-28_m.roi
+Candidate_end
+Candidate_start
+Type: ImageRegion
+FeatureValue: 0 0 0 38.6924 100 0 0
+ConfidenceScore: 2 2 2 1 1 2 2
+PartialConfidence: 1
+Matched: True
+RoiFile: sd_nodule_4mm-29_m.roi
+Candidate_end
+Candidate_start
+Type: ImageRegion
+FeatureValue: 0 0 0 58.8798 100 0 0
+ConfidenceScore: 2 2 2 1 1 2 2
+PartialConfidence: 1
+Matched: True
+RoiFile: sd_nodule_4mm-30_m.roi
+Candidate_end
+Candidate_start
+Type: ImageRegion
+FeatureValue: 0 0 0 45.4215 100 0 0
+ConfidenceScore: 2 2 2 1 1 2 2
+PartialConfidence: 1
+Matched: True
+RoiFile: sd_nodule_4mm-31_m.roi
+Candidate_end
+Candidate_start
+Type: ImageRegion
+FeatureValue: 0 0 0 70.6557 100 0 0
+ConfidenceScore: 2 2 2 1 1 2 2
+PartialConfidence: 1
+Matched: True
+RoiFile: sd_nodule_4mm-32_m.roi
+Candidate_end
+Candidate_start
+Type: ImageRegion
+FeatureValue: 0 0 0 65.6089 98.4375 0 0
+ConfidenceScore: 2 2 2 1 1 2 2
+PartialConfidence: 1
+Matched: True
+RoiFile: sd_nodule_4mm-33_m.roi
+Candidate_end
+Candidate_start
+Type: ImageRegion
+FeatureValue: 0 0 0 70.6557 66.8224 0 0
+ConfidenceScore: 2 2 2 1 0.954606 2 2
+PartialConfidence: 0.954606
+Matched: True
+RoiFile: sd_nodule_4mm-34_m.roi
+Candidate_end
+Candidate_start
+Type: ImageRegion
+FeatureValue: 0 0 0 45.4215 100 0 0
+ConfidenceScore: 2 2 2 1 1 2 2
+PartialConfidence: 1
+Matched: True
+RoiFile: sd_nodule_4mm-35_m.roi
+Candidate_end
+Candidate_start
+Type: ImageRegion
+FeatureValue: 0 0 0 70.6557 98.6111 0 0
+ConfidenceScore: 2 2 2 1 1 2 2
+PartialConfidence: 1
+Matched: True
+RoiFile: sd_nodule_4mm-36_m.roi
+Candidate_end
+Candidate_start
+Type: ImageRegion
+FeatureValue: 0 0 0 5.04684 71.4286 0 0
+ConfidenceScore: 2 2 2 0.336456 1 2 2
+PartialConfidence: 0.336456
+Matched: False
+RoiFile: sd_nodule_4mm-37.roi
+Candidate_end
+Candidate_start
+Type: ImageRegion
+FeatureValue: 0 0 0 45.4216 84.0278 0 0
+ConfidenceScore: 2 2 2 1 1 2 2
+PartialConfidence: 1
+Matched: True
+RoiFile: sd_nodule_4mm-38_m.roi
+Candidate_end
+Candidate_start
+Type: ImageRegion
+FeatureValue: 0 0 0 47.1038 99.3671 0 0
+ConfidenceScore: 2 2 2 1 1 2 2
+PartialConfidence: 1
+Matched: True
+RoiFile: sd_nodule_4mm-39_m.roi
+Candidate_end
+Candidate_start
+Type: ImageRegion
+FeatureValue: 0 0 0 35.3279 100 0 0
+ConfidenceScore: 2 2 2 1 1 2 2
+PartialConfidence: 1
+Matched: True
+RoiFile: sd_nodule_4mm-40_m.roi
+Candidate_end
+Candidate_start
+Type: ImageRegion
+FeatureValue: 0 0 0 38.6924 100 0 0
+ConfidenceScore: 2 2 2 1 1 2 2
+PartialConfidence: 1
+Matched: True
+RoiFile: sd_nodule_4mm-41_m.roi
+Candidate_end
+Candidate_start
+Type: ImageRegion
+FeatureValue: 0 0 0 48.7861 100 0 0
+ConfidenceScore: 2 2 2 1 1 2 2
+PartialConfidence: 1
+Matched: True
+RoiFile: sd_nodule_4mm-42_m.roi
+Candidate_end
+Candidate_start
+Type: ImageRegion
+FeatureValue: 0 0 0 31.9633 100 0 0
+ConfidenceScore: 2 2 2 1 1 2 2
+PartialConfidence: 1
+Matched: True
+RoiFile: sd_nodule_4mm-43_m.roi
+Candidate_end
+Candidate_start
+Type: ImageRegion
+FeatureValue: 0 0 0 97.5722 89.2857 0 0
+ConfidenceScore: 2 2 2 1 1 2 2
+PartialConfidence: 1
+Matched: True
+RoiFile: sd_nodule_4mm-44_m.roi
+Candidate_end
+MatchedPrimitiveRoiFile: sd_nodule_4mm.roi
+
+SolElement: sd_nodule_4mm_temp
+Attribute: SearchArea: MorphDilate
+Related SolElement: sd_nodule_4mm_init1
+Structuring Element: Box (-2, -2, -2) (2, 2, 2)
+End: MorphDilate
+Attribute: SearchArea: PartOf
+Related SolElement: lung_init_closed
+End: PartOf
+Attribute: SegParam: IncludeAllVoxels
+End: IncludeAllVoxels
+Num_Cands: 0
+Num_Matched_Cands: 0
+MatchedPrimitiveRoiFile: sd_nodule_4mm_temp.roi
+
+SolElement: radfiltered_sd_nodule_4mm_init
+Attribute: SearchArea: PartOf
+Related SolElement: sd_nodule_4mm_opacity
+End: PartOf
+Attribute: Feature: Volume
+Fuzzy: [(0, 0, 0)(15, 1, 0)(2000, 1, 0)(4000, 0, 0)]
+End: Volume
+Attribute: InfParam: MatchAboveConf
+Confidence_threshold: 0.9
+End: MatchAboveConf
+Num_Cands: 0
+Num_Matched_Cands: 0
+MatchedPrimitiveRoiFile: radfiltered_sd_nodule_4mm_init.roi
+
+SolElement: sd_nodule_4mm_init1_radlogics
+Attribute: SearchArea: PartOf
+Related SolElement: sd_nodule_4mm_init1
+End: PartOf
+Attribute: Feature: Sphericity
+Fuzzy: [(5, 0, 0)(7, 1, 0)]
+End: Sphericity
+Attribute: InfParam: MatchAboveConf
+Confidence_threshold: 0.9
+End: MatchAboveConf
+Num_Cands: 0
+Num_Matched_Cands: 0
+MatchedPrimitiveRoiFile: sd_nodule_4mm_init1_radlogics.roi
+
+SolElement: sd_nodule_4mm_init1
+Attribute: SearchArea: PartOf
+Related SolElement: sd_nodule_4mm_opacity
+End: PartOf
+Attribute: Feature: Volume
+Fuzzy: [(0, 0, 0)(15, 1, 0)(2000, 1, 0)(4000, 0, 0)]
+End: Volume
+Attribute: InfParam: MatchAboveConf
+Confidence_threshold: 0.9
+End: MatchAboveConf
+Num_Cands: 0
+Num_Matched_Cands: 0
+MatchedPrimitiveRoiFile: sd_nodule_4mm_init1.roi
+
+SolElement: sd_nodule_4mm_opacity
+Attribute: SearchArea: PartOf
+Related SolElement: sd_opacity
+End: PartOf
+Attribute: SegParam: ThreshRangeGL
+GL_range: -200 to 2000
+End: ThreshRangeGL
+Attribute: SegParam: IncludeAllVoxels
+End: IncludeAllVoxels
+Num_Cands: 0
+Num_Matched_Cands: 0
+MatchedPrimitiveRoiFile: sd_nodule_4mm_opacity.roi
+
+SolElement: nodule_8mm
+Attribute: SearchArea: Clear
+End: Clear
+Attribute: SearchArea: PartOf
+Related SolElement: sd_nodule
+End: PartOf
+Attribute: SearchArea: PartOf
+Related SolElement: sd_nodule_init
+End: PartOf
+Attribute: Feature: SurfaceContactPercentage
+Related SolElement: lung_dilated
+Fuzzy: [(0, 0, 0)(70, 1, 0)]
+End: SurfaceContactPercentage
+Attribute: Feature: Volume
+Fuzzy: [(0, 0, 0)(268, 1, 0)]
+End: Volume
+Attribute: InfParam: MatchAboveConf
+Confidence_threshold: 0.9
+End: MatchAboveConf
+Num_Cands: 0
+Num_Matched_Cands: 0
+MatchedPrimitiveRoiFile: nodule_8mm.roi
+
+SolElement: sd_nodule
+Attribute: SearchArea: PartOf
+Related SolElement: lung_filled_init
+End: PartOf
+Attribute: SearchArea: NotPartOf
+Related SolElement: diaphragm_init
+End: NotPartOf
+Attribute: SegParam: GrowPartSolid
+Related SolElement: sd_nodule_init
+Percentage: 50
+End: GrowPartSolid
+Attribute: Feature: Area_maxXY
+Fuzzy: [(0, 0, 0)(12, 1, 0)(1258, 1, 0)(2000, 0, 0)]
+End: Area_maxXY
+Attribute: Feature: Sphericity
+Fuzzy: [(5, 0, 0)(13, 1, 0)]
+End: Sphericity
+Attribute: Feature: Volume
+Fuzzy: [(0, 0, 0)(8, 1, 0)(40000, 1, 0)(60000, 0, 0)]
+End: Volume
+Attribute: InfParam: MatchAboveConf
+Confidence_threshold: 0.99
+End: MatchAboveConf
+Attribute: MemParam: RetainCands
+End: RetainCands
+Num_Cands: 2
+Num_Matched_Cands: 2
+Candidate_start
+Type: ImageRegion
+FeatureValue: 0 0 0 485.169 24.3226 4713.75 0 0
+ConfidenceScore: 2 2 2 1 1 1 2 2
+PartialConfidence: 1
+Matched: True
+RoiFile: sd_nodule-0_m.roi
+Candidate_end
+Candidate_start
+Type: ImageRegion
+FeatureValue: 0 0 0 354.625 41.3663 5023.29 0 0
+ConfidenceScore: 2 2 2 1 1 1 2 2
+PartialConfidence: 1
+Matched: True
+RoiFile: sd_nodule-1_m.roi
+Candidate_end
+MatchedPrimitiveRoiFile: sd_nodule.roi
+
+SolElement: sd_nodule_init
+Attribute: SearchArea: PartOf
+Related SolElement: sd_nodule_preinit
+End: PartOf
+Attribute: Feature: Overlaps
+Related SolElement: trachea_overlap
+Fuzzy: [(0, 1, 0)(1, 0, 0)]
+End: Overlaps
+Attribute: Feature: Overlaps
+Related SolElement: sd_nodule_fp
+Fuzzy: [(0, 1, 0)(1, 0, 0)]
+End: Overlaps
+Attribute: InfParam: MatchAboveConf
+Confidence_threshold: 0.99
+End: MatchAboveConf
+Num_Cands: 0
+Num_Matched_Cands: 0
+MatchedPrimitiveRoiFile: sd_nodule_init.roi
+
+SolElement: radfiltered_sd_nodule_init
+Attribute: SearchArea: PartOf
+Related SolElement: sd_opacity_closed
+End: PartOf
+Attribute: SegParam: DistanceMapRegionGrowing
+Related SolElement: sd_distancemap_watershed
+Distance threshold: 1
+Percentage: 50
+End: DistanceMapRegionGrowing
+Attribute: Feature: CentroidInside
+Related SolElement: mediastinum_init_2
+Fuzzy: [(0, 1, 0)(1, 0, 0)]
+End: CentroidInside
+Attribute: Feature: Overlaps
+Related SolElement: bone
+Fuzzy: [(0, 1, 0)(1, 0, 0)]
+End: Overlaps
+Attribute: Feature: Overlaps
+Related SolElement: spine
+Fuzzy: [(0, 1, 0)(1, 0, 0)]
+End: Overlaps
+Attribute: Feature: Overlaps
+Related SolElement: bowel_dilated
+Fuzzy: [(0, 1, 0)(1, 0, 0)]
+End: Overlaps
+Attribute: Feature: CentroidInside
+Related SolElement: bony_apex_dilated
+Fuzzy: [(0, 1, 0)(1, 0, 0)]
+End: CentroidInside
+Attribute: Feature: CentroidInside
+Related SolElement: dilated_trachea
+Fuzzy: [(0, 1, 0)(1, 0, 0)]
+End: CentroidInside
+Attribute: Feature: CentroidInside
+Related SolElement: diaphragm_init
+Fuzzy: [(0, 1, 0)(1, 0, 0)]
+End: CentroidInside
+Attribute: Feature: Overlaps
+Related SolElement: trachea_overlap
+Fuzzy: [(0, 1, 0)(1, 0, 0)]
+End: Overlaps
+Attribute: Feature: Overlaps
+Related SolElement: sd_nodule_fp
+Fuzzy: [(0, 1, 0)(1, 0, 0)]
+End: Overlaps
+Attribute: InfParam: MatchAboveConf
+Confidence_threshold: 0.99
+End: MatchAboveConf
+Attribute: MemParam: RetainCands
+End: RetainCands
+Num_Cands: 5
+Num_Matched_Cands: 5
+Candidate_start
+Type: ImageRegion
+FeatureValue: 0 0 0 0 0 0 0 0 0 0 0 0 0
+ConfidenceScore: 2 2 1 1 1 2 1 1 1 2 2 2 2
+PartialConfidence: 1
+Matched: True
+RoiFile: radfiltered_sd_nodule_init-0_m.roi
+Candidate_end
+Candidate_start
+Type: ImageRegion
+FeatureValue: 0 0 0 0 0 0 0 0 0 0 0 0 0
+ConfidenceScore: 2 2 1 1 1 2 1 1 1 2 2 2 2
+PartialConfidence: 1
+Matched: True
+RoiFile: radfiltered_sd_nodule_init-1_m.roi
+Candidate_end
+Candidate_start
+Type: ImageRegion
+FeatureValue: 0 0 0 0 0 0 0 0 0 0 0 0 0
+ConfidenceScore: 2 2 1 1 1 2 1 1 1 2 2 2 2
+PartialConfidence: 1
+Matched: True
+RoiFile: radfiltered_sd_nodule_init-2_m.roi
+Candidate_end
+Candidate_start
+Type: ImageRegion
+FeatureValue: 0 0 0 0 0 0 0 0 0 0 0 0 0
+ConfidenceScore: 2 2 1 1 1 2 1 1 1 2 2 2 2
+PartialConfidence: 1
+Matched: True
+RoiFile: radfiltered_sd_nodule_init-3_m.roi
+Candidate_end
+Candidate_start
+Type: ImageRegion
+FeatureValue: 0 0 0 0 0 0 0 0 0 0 0 0 0
+ConfidenceScore: 2 2 1 1 1 2 1 1 1 2 2 2 2
+PartialConfidence: 1
+Matched: True
+RoiFile: radfiltered_sd_nodule_init-4_m.roi
+Candidate_end
+MatchedPrimitiveRoiFile: radfiltered_sd_nodule_init.roi
+
+SolElement: trachea_overlap
+Attribute: SearchArea: PartOf
+Related SolElement: sd_nodule_preinit
+End: PartOf
+Attribute: SearchArea: PartOf
+Related SolElement: dilated_trachea
+End: PartOf
+Attribute: Feature: Area_maxXY
+Fuzzy: [(0, 0, 0)(50, 1, 0)]
+End: Area_maxXY
+Attribute: InfParam: MatchAboveConf
+Confidence_threshold: 0.99
+End: MatchAboveConf
+Attribute: MemParam: RetainCands
+End: RetainCands
+Num_Cands: 0
+Num_Matched_Cands: 0
+
+SolElement: sd_nodule_fp
+Attribute: SearchArea: PartOf
+Related SolElement: sd_nodule_preinit
+End: PartOf
+Attribute: Feature: Sphericity
+Fuzzy: [(15, 1, 0)(20, 0, 0)]
+End: Sphericity
+Attribute: Feature: Overlaps
+Related SolElement: sd_opacity_between
+Fuzzy: [(0, 0, 0)(1, 1, 0)]
+End: Overlaps
+Attribute: InfParam: MatchAboveConf
+Confidence_threshold: 0.99
+End: MatchAboveConf
+Num_Cands: 0
+Num_Matched_Cands: 0
+
+SolElement: sd_nodule_preinit
+Attribute: SearchArea: PartOf
+Related SolElement: sd_opacity_closed
+End: PartOf
+Attribute: SegParam: DistanceMapRegionGrowing
+Related SolElement: sd_distancemap_watershed
+Distance threshold: 1
+Percentage: 50
+End: DistanceMapRegionGrowing
+Attribute: Feature: Area_maxXY
+Fuzzy: [(0, 0, 0)(12, 1, 0)(1258, 1, 0)(2000, 0, 0)]
+End: Area_maxXY
+Attribute: Feature: Volume
+Fuzzy: [(0, 0, 0)(8, 1, 0)(40000, 1, 0)(60000, 0, 0)]
+End: Volume
+Attribute: Feature: Sphericity
+Fuzzy: [(5, 0, 0)(10, 1, 0)]
+End: Sphericity
+Attribute: Feature: CentroidInside
+Related SolElement: mediastinum_init_2
+Fuzzy: [(0, 1, 0)(1, 0, 0)]
+End: CentroidInside
+Attribute: Feature: Overlaps
+Related SolElement: bone
+Fuzzy: [(0, 1, 0)(1, 0, 0)]
+End: Overlaps
+Attribute: Feature: Overlaps
+Related SolElement: spine
+Fuzzy: [(0, 1, 0)(1, 0, 0)]
+End: Overlaps
+Attribute: Feature: Overlaps
+Related SolElement: bowel_dilated
+Fuzzy: [(0, 1, 0)(1, 0, 0)]
+End: Overlaps
+Attribute: Feature: CentroidInside
+Related SolElement: bony_apex_dilated
+Fuzzy: [(0, 1, 0)(1, 0, 0)]
+End: CentroidInside
+Attribute: Feature: CentroidInside
+Related SolElement: dilated_trachea
+Fuzzy: [(0, 1, 0)(1, 0, 0)]
+End: CentroidInside
+Attribute: Feature: CentroidInside
+Related SolElement: diaphragm_init
+Fuzzy: [(0, 1, 0)(1, 0, 0)]
+End: CentroidInside
+Attribute: InfParam: MatchAboveConf
+Confidence_threshold: 0.99
+End: MatchAboveConf
+Num_Cands: 0
+Num_Matched_Cands: 0
+MatchedPrimitiveRoiFile: sd_nodule_preinit.roi
+
+SolElement: sd_distancemap_watershed
+Attribute: SegParam: DistanceMapWatershed
+Related SolElement: sd_opacity_closed
+Distance threshold: 1
+End: DistanceMapWatershed
+Attribute: Feature: Overlaps
+Related SolElement: mediastinum_init_2
+Fuzzy: [(0, 1, 0)(1, 0, 0)]
+End: Overlaps
+Attribute: Feature: Volume
+Fuzzy: [(0, 0, 0)(1000, 1, 0)(40000, 0, 0)]
+End: Volume
+Attribute: SegParam: MinNumVoxels
+Min_num_voxels: 15
+End: MinNumVoxels
+Attribute: InfParam: MatchAboveConf
+Confidence_threshold: 0.01
+End: MatchAboveConf
+Num_Cands: 0
+Num_Matched_Cands: 0
+MatchedPrimitiveRoiFile: sd_distancemap_watershed.roi
+
+SolElement: sd_opacity_between
+Attribute: SearchArea: PartOf
+Related SolElement: mediastinum
+End: PartOf
+Attribute: SearchArea: BoxRelPlanarCentroid
+Related SolElement: mediastinum
+End: BoxRelPlanarCentroid
+Attribute: Feature: Area_perXY
+Fuzzy: [(0, 0, 0)(300, 1, 0)]
+End: Area_perXY
+Attribute: SegParam: MinNumVoxels
+Min_num_voxels: 100
+End: MinNumVoxels
+Attribute: InfParam: MatchAboveConf
+Confidence_threshold: 0.99
+End: MatchAboveConf
+Num_Cands: 0
+Num_Matched_Cands: 0
+MatchedPrimitiveRoiFile: sd_opacity_between.roi
+
+SolElement: sd_opacity_closed
+Attribute: SearchArea: MorphClose
+Related SolElement: sd_opacity
+Structuring Element: Circle 1.5
+End: MorphClose
+Attribute: SegParam: IncludeAllVoxels
+End: IncludeAllVoxels
+Num_Cands: 0
+Num_Matched_Cands: 0
+MatchedPrimitiveRoiFile: sd_opacity_closed.roi
+
+SolElement: sd_opacity
+Attribute: SegParam: ThreshRangeGL
+GL_range: -400 to 2000
+End: ThreshRangeGL
+Attribute: SegParam: IncludeAllVoxels
+End: IncludeAllVoxels
+Attribute: SearchArea: PartOf
+Related SolElement: lung_filled_init
+End: PartOf
+Num_Cands: 0
+Num_Matched_Cands: 0
+MatchedPrimitiveRoiFile: sd_opacity.roi
+
+SolElement: bony_apex_dilated
+Attribute: SearchArea: MorphDilate
+Related SolElement: bony_apex
+Structuring Element: Circle 5
+End: MorphDilate
+Attribute: InfParam: MatchAboveConf
+Confidence_threshold: 0.1
+End: MatchAboveConf
+Num_Cands: 0
+Num_Matched_Cands: 0
+MatchedPrimitiveRoiFile: bony_apex_dilated.roi
+
+SolElement: bony_apex
+Attribute: SegParam: ThreshRangeGL
+GL_range: 150 to 2000
+End: ThreshRangeGL
+Attribute: SearchArea: PartOf
+Related SolElement: left_lung_apex
+End: PartOf
+Attribute: SearchArea: PartOf
+Related SolElement: right_lung_apex
+End: PartOf
+Attribute: SearchArea: MorphDilate
+Structuring Element: Line_Y 80
+End: MorphDilate
+Attribute: SearchArea: NotPartOf
+Related SolElement: lung_init_closed
+End: NotPartOf
+Attribute: Feature: Volume
+Fuzzy: [(0, 0, 0)(50, 1, 0)]
+End: Volume
+Attribute: InfParam: MatchAboveConf
+Confidence_threshold: 0.99
+End: MatchAboveConf
+Num_Cands: 0
+Num_Matched_Cands: 0
+MatchedPrimitiveRoiFile: bony_apex.roi
+
+SolElement: mediastinum
+Attribute: SegParam: ThreshRangeGL
+GL_range: -600 to 2000
+End: ThreshRangeGL
+Attribute: SearchArea: MorphDilate
+Related SolElement: mediastinum_init_1
+Structuring Element: Circle 3
+End: MorphDilate
+Attribute: SegParam: MinNumVoxels
+Min_num_voxels: 1000
+End: MinNumVoxels
+Num_Cands: 0
+Num_Matched_Cands: 0
+MatchedPrimitiveRoiFile: mediastinum.roi
+
+SolElement: mediastinum_init_2
+Attribute: SegParam: UseSubSampledImage
+X-step: 4
+Y-step: 4
+Z-step: 2
+End: UseSubSampledImage
+Attribute: SegParam: MinNumVoxels
+Min_num_voxels: 1000
+End: MinNumVoxels
+Attribute: SearchArea: MorphErode
+Related SolElement: mediastinum_init_1
+Structuring Element: Circle 12
+End: MorphErode
+Attribute: SearchArea: BoxRelPlanarYmin
+Related SolElement: spine
+End: BoxRelPlanarYmin
+Attribute: SearchArea: MorphDilate
+Structuring Element: Circle 4
+End: MorphDilate
+Attribute: SearchArea: NotPartOf
+Related SolElement: lung_init_closed
+End: NotPartOf
+Num_Cands: 0
+Num_Matched_Cands: 0
+MatchedPrimitiveRoiFile: mediastinum_init_2.roi
+
+SolElement: mediastinum_init_1
+Attribute: SegParam: ThreshRangeGL
+GL_range: -500 to 4000
+End: ThreshRangeGL
+Attribute: SegParam: UseSubSampledImage
+X-step: 4
+Y-step: 4
+Z-step: 2
+End: UseSubSampledImage
+Attribute: SegParam: MinNumVoxels
+Min_num_voxels: 1000
+End: MinNumVoxels
+Attribute: SearchArea: BetweenX
+Related SolElement: lung_init
+End: BetweenX
+Attribute: Feature: CentroidOffsetX
+Related SolElement: thorax
+Fuzzy: [(-40, 0, 0)(-10, 1, 0)(10, 1, 0)(40, 0, 0)]
+End: CentroidOffsetX
+Attribute: Feature: Area_perXY
+Fuzzy: [(1000, 0, 0)(2000, 1, 0)]
+End: Area_perXY
+Num_Cands: 0
+Num_Matched_Cands: 0
+MatchedPrimitiveRoiFile: mediastinum_init_1.roi
+
+SolElement: lung_init_closed
+Attribute: SearchArea: MorphClose
+Related SolElement: lung_init
+Structuring Element: Line_Y 30
+End: MorphClose
+Attribute: SegParam: IncludeAllVoxels
+End: IncludeAllVoxels
+Num_Cands: 0
+Num_Matched_Cands: 0
+MatchedPrimitiveRoiFile: lung_init_closed.roi
+
+SolElement: lung_filled_init
+Attribute: SegParam: IncludeAllVoxels
+End: IncludeAllVoxels
+Attribute: SearchArea: ConvexHull
+Related SolElement: lung_init
+End: ConvexHull
+Attribute: SearchArea: MorphErode
+Structuring Element: Circle 1.5
+End: MorphErode
+Num_Cands: 0
+Num_Matched_Cands: 0
+MatchedPrimitiveRoiFile: lung_filled_init.roi
+
+SolElement: lung_sub_trachea
+Attribute: SearchArea: PartOf
+Related SolElement: lung_init
+End: PartOf
+Attribute: SearchArea: NotPartOf
+Related SolElement: dilated_trachea
+End: NotPartOf
+Attribute: Feature: Volume
+Fuzzy: [(10000, 0, 0)(1e+06, 1, 0)]
+End: Volume
+Attribute: InfParam: MatchAboveConf
+Confidence_threshold: 0.99
+End: MatchAboveConf
+Num_Cands: 0
+Num_Matched_Cands: 0
+MatchedPrimitiveRoiFile: lung_sub_trachea.roi
+
+SolElement: dilated_trachea
+Attribute: SearchArea: MorphDilate
+Related SolElement: trachea
+Structuring Element: Circle 5
+End: MorphDilate
+Attribute: SearchArea: MorphDilate
+Structuring Element: Box (0, 0, 0) (0, 0, 10)
+End: MorphDilate
+Attribute: SegParam: IncludeAllVoxels
+End: IncludeAllVoxels
+Num_Cands: 0
+Num_Matched_Cands: 0
+MatchedPrimitiveRoiFile: dilated_trachea.roi
+
+SolElement: trachea
+Attribute: SearchArea: PartOf
+Related SolElement: trachea_init
+End: PartOf
+Attribute: Feature: Area_perXY
+Fuzzy: [(300, 1, 0)(1000, 0, 0)]
+End: Area_perXY
+Attribute: Feature: CentroidOffsetZ
+Related SolElement: right_lung_apex
+Fuzzy: [(-30, 0, 0)(0, 1, 0)(40, 1, 0)(100, 0, 0)]
+End: CentroidOffsetZ
+Attribute: Feature: CircularityMin
+Fuzzy: [(0, 0, 0)(70, 1, 0)]
+End: CircularityMin
+Attribute: Feature: PlanarCentroidOffsetX
+Related SolElement: lung_init
+Fuzzy: [(-40, 0, 0)(-20, 1, 0)(20, 1, 0)(40, 0, 0)]
+End: PlanarCentroidOffsetX
+Attribute: Feature: Volume
+Fuzzy: [(0, 0, 0)(10000, 1, 0)]
+End: Volume
+Num_Cands: 0
+Num_Matched_Cands: 0
+MatchedPrimitiveRoiFile: trachea.roi
+
+SolElement: trachea_init
+Attribute: SegParam: SegmentIn2D
+End: SegmentIn2D
+Attribute: SearchArea: PartOf
+Related SolElement: lung_init
+End: PartOf
+Attribute: Feature: Area_perXY
+Fuzzy: [(500, 1, 0)(1000, 0, 0)]
+End: Area_perXY
+Attribute: Feature: CircularityMin
+Fuzzy: [(0, 0, 0)(50, 1, 0)]
+End: CircularityMin
+Attribute: InfParam: MatchAboveConf
+Confidence_threshold: 0.99
+End: MatchAboveConf
+Num_Cands: 0
+Num_Matched_Cands: 0
+MatchedPrimitiveRoiFile: trachea_init.roi
+
+SolElement: diaphragm_init
+Attribute: SegParam: SegmentIn2D
+End: SegmentIn2D
+Attribute: SegParam: ThreshRangeGL
+GL_range: -400 to 2000
+End: ThreshRangeGL
+Attribute: SearchArea: PartOf
+Related SolElement: left_lung_base
+End: PartOf
+Attribute: SearchArea: PartOf
+Related SolElement: right_lung_base
+End: PartOf
+Attribute: SearchArea: MorphDilate
+Structuring Element: Box (0, -30, 0) (0, 0, 0)
+End: MorphDilate
+Attribute: SearchArea: NotPartOf
+Related SolElement: left_lung_base
+End: NotPartOf
+Attribute: SearchArea: NotPartOf
+Related SolElement: right_lung_base
+End: NotPartOf
+Attribute: Feature: Area_maxXY
+Fuzzy: [(0, 0, 0)(300, 1, 0)]
+End: Area_maxXY
+Attribute: InfParam: MatchAboveConf
+Confidence_threshold: 0.99
+End: MatchAboveConf
+Num_Cands: 0
+Num_Matched_Cands: 0
+MatchedPrimitiveRoiFile: diaphragm_init.roi
+
+SolElement: bowel_dilated
+Attribute: SearchArea: MorphDilate
+Related SolElement: bowel_init
+Structuring Element: Circle 5
+End: MorphDilate
+Attribute: SearchArea: MorphDilate
+Structuring Element: Box (0, 0, -3) (0, 0, 3)
+End: MorphDilate
+Attribute: SegParam: IncludeAllVoxels
+End: IncludeAllVoxels
+Num_Cands: 0
+Num_Matched_Cands: 0
+
+SolElement: bowel_init
+Attribute: SegParam: SegmentIn2D
+End: SegmentIn2D
+Attribute: SegParam: MinNumVoxels
+Min_num_voxels: 100
+End: MinNumVoxels
+Attribute: SegParam: ThreshRangeGL
+GL_range: -2000 to -950
+End: ThreshRangeGL
+Attribute: SearchArea: PartOf
+Related SolElement: bowel_preinit
+End: PartOf
+Attribute: Feature: CentroidOffsetX
+Related SolElement: lung_init
+Fuzzy: [(0, 0, 0)(30, 1, 0)]
+End: CentroidOffsetX
+Attribute: Feature: Area_perXY
+Fuzzy: [(0, 0, 0)(100, 1, 0)]
+End: Area_perXY
+Attribute: InfParam: MatchAboveConf
+Confidence_threshold: 0.99
+End: MatchAboveConf
+Attribute: MemParam: RetainCands
+End: RetainCands
+Num_Cands: 0
+Num_Matched_Cands: 0
+
+SolElement: bowel_preinit
+Attribute: SegParam: SegmentIn2D
+End: SegmentIn2D
+Attribute: SegParam: ThreshRangeGL
+GL_range: -2000 to -800
+End: ThreshRangeGL
+Attribute: SegParam: MinNumVoxels
+Min_num_voxels: 100
+End: MinNumVoxels
+Attribute: SearchArea: PartOf
+Related SolElement: lung_init
+End: PartOf
+Attribute: SearchArea: BoxRelCentroid
+Related SolElement: left_lung_base
+End: BoxRelCentroid
+Attribute: Feature: CentroidOffsetX
+Related SolElement: lung_init
+Fuzzy: [(0, 0, 0)(30, 1, 0)]
+End: CentroidOffsetX
+Attribute: Feature: Area_perXY
+Fuzzy: [(0, 0, 0)(100, 1, 0)(1500, 1, 0)(2000, 0, 0)]
+End: Area_perXY
+Attribute: InfParam: MatchAboveConf
+Confidence_threshold: 0.99
+End: MatchAboveConf
+Num_Cands: 0
+Num_Matched_Cands: 0
+MatchedPrimitiveRoiFile: bowel_preinit.roi
+
+SolElement: right_lung_base
+Attribute: SearchArea: Inside2D
+Related SolElement: lung_base_init
+End: Inside2D
+Attribute: Feature: Area_perXY
+Fuzzy: [(2500, 1, 0)(3000, 0, 0)]
+End: Area_perXY
+Attribute: Feature: CentroidOffsetZ
+Related SolElement: right_lung_apex
+Fuzzy: [(-150, 1, 0)(0, 0, 0)(150, 1, 0)]
+End: CentroidOffsetZ
+Attribute: Feature: CentroidOffsetY
+Related SolElement: lung_init
+Fuzzy: [(0, 0, 0)(20, 1, 0)]
+End: CentroidOffsetY
+Attribute: Feature: CircularityMin
+Fuzzy: [(20, 1, 0)(70, 0, 0)]
+End: CircularityMin
+Attribute: Feature: PlanarCentroidOffsetX
+Related SolElement: lung_init
+Fuzzy: [(-30, 1, 0)(-0, 0, 0)]
+End: PlanarCentroidOffsetX
+Attribute: Feature: Volume
+Fuzzy: [(0, 0, 0)(10000, 1, 0)]
+End: Volume
+Num_Cands: 0
+Num_Matched_Cands: 0
+MatchedPrimitiveRoiFile: right_lung_base.roi
+
+SolElement: right_lung_apex
+Attribute: SearchArea: PartOf
+Related SolElement: lung_apex_init
+End: PartOf
+Attribute: SearchArea: NotPartOf
+Related SolElement: trachea
+End: NotPartOf
+Attribute: Feature: Area_perXY
+Fuzzy: [(0, 0, 0)(1000, 1, 0)(2500, 1, 0)(3000, 0, 0)]
+End: Area_perXY
+Attribute: Feature: CentroidOffsetZ
+Related SolElement: right_lung_base
+Fuzzy: [(-150, 1, 0)(0, 0, 0)(150, 1, 0)]
+End: CentroidOffsetZ
+Attribute: Feature: PlanarCentroidOffsetX
+Related SolElement: lung_init
+Fuzzy: [(-30, 1, 0)(-0, 0, 0)]
+End: PlanarCentroidOffsetX
+Attribute: Feature: Volume
+Fuzzy: [(0, 0, 0)(10000, 1, 0)]
+End: Volume
+Num_Cands: 0
+Num_Matched_Cands: 0
+MatchedPrimitiveRoiFile: right_lung_apex.roi
+
+SolElement: left_lung_base
+Attribute: SearchArea: Inside2D
+Related SolElement: lung_base_init
+End: Inside2D
+Attribute: Feature: Area_perXY
+Fuzzy: [(2500, 1, 0)(3000, 0, 0)]
+End: Area_perXY
+Attribute: Feature: CentroidOffsetZ
+Related SolElement: left_lung_apex
+Fuzzy: [(-150, 1, 0)(0, 0, 0)(150, 1, 0)]
+End: CentroidOffsetZ
+Attribute: Feature: CentroidOffsetY
+Related SolElement: lung_init
+Fuzzy: [(0, 0, 0)(20, 1, 0)]
+End: CentroidOffsetY
+Attribute: Feature: CircularityMin
+Fuzzy: [(20, 1, 0)(70, 0, 0)]
+End: CircularityMin
+Attribute: Feature: PlanarCentroidOffsetX
+Related SolElement: lung_init
+Fuzzy: [(0, 0, 0)(30, 1, 0)]
+End: PlanarCentroidOffsetX
+Attribute: Feature: Volume
+Fuzzy: [(0, 0, 0)(10000, 1, 0)]
+End: Volume
+Num_Cands: 0
+Num_Matched_Cands: 0
+MatchedPrimitiveRoiFile: left_lung_base.roi
+
+SolElement: left_lung_apex
+Attribute: SearchArea: PartOf
+Related SolElement: lung_apex_init
+End: PartOf
+Attribute: SearchArea: NotPartOf
+Related SolElement: trachea
+End: NotPartOf
+Attribute: Feature: Area_perXY
+Fuzzy: [(0, 0, 0)(500, 1, 0)(2500, 1, 0)(3000, 0, 0)]
+End: Area_perXY
+Attribute: Feature: CentroidOffsetZ
+Related SolElement: left_lung_base
+Fuzzy: [(-150, 1, 0)(0, 0, 0)(150, 1, 0)]
+End: CentroidOffsetZ
+Attribute: Feature: PlanarCentroidOffsetX
+Related SolElement: lung_init
+Fuzzy: [(0, 0, 0)(30, 1, 0)]
+End: PlanarCentroidOffsetX
+Attribute: Feature: Volume
+Fuzzy: [(0, 0, 0)(10000, 1, 0)]
+End: Volume
+Num_Cands: 0
+Num_Matched_Cands: 0
+MatchedPrimitiveRoiFile: left_lung_apex.roi
+
+SolElement: lung_base_init
+Attribute: SegParam: SegmentIn2D
+End: SegmentIn2D
+Attribute: SearchArea: PartOf
+Related SolElement: lung_init
+End: PartOf
+Attribute: Feature: Area_perXY
+Fuzzy: [(5000, 1, 0)(5500, 0, 0)]
+End: Area_perXY
+Attribute: Feature: CentroidOffsetZ
+Related SolElement: lung_init
+Fuzzy: [(-40, 1, 0)(0, 0, 0)(40, 1, 0)]
+End: CentroidOffsetZ
+Attribute: Feature: CircularityMin
+Fuzzy: [(50, 1, 0)(100, 0, 0)]
+End: CircularityMin
+Attribute: InfParam: MatchAboveConf
+Confidence_threshold: 0.99
+End: MatchAboveConf
+Num_Cands: 0
+Num_Matched_Cands: 0
+MatchedPrimitiveRoiFile: lung_base_init.roi
+
+SolElement: lung_apex_init
+Attribute: SegParam: SegmentIn2D
+End: SegmentIn2D
+Attribute: SearchArea: PartOf
+Related SolElement: lung_init
+End: PartOf
+Attribute: Feature: Area_perXY
+Fuzzy: [(5000, 1, 0)(5500, 0, 0)]
+End: Area_perXY
+Attribute: Feature: CentroidOffsetZ
+Related SolElement: lung_init
+Fuzzy: [(-40, 1, 0)(0, 0, 0)(40, 1, 0)]
+End: CentroidOffsetZ
+Attribute: Feature: CircularityMin
+Fuzzy: [(0, 0, 0)(30, 1, 0)]
+End: CircularityMin
+Attribute: InfParam: MatchAboveConf
+Confidence_threshold: 0.99
+End: MatchAboveConf
+Num_Cands: 0
+Num_Matched_Cands: 0
+MatchedPrimitiveRoiFile: lung_apex_init.roi
+
+SolElement: lung_dilated
+Attribute: SearchArea: MorphDilate
+Related SolElement: lung_init
+Structuring Element: Circle 2
+End: MorphDilate
+Attribute: SegParam: IncludeAllVoxels
+End: IncludeAllVoxels
+Num_Cands: 0
+Num_Matched_Cands: 0
+MatchedPrimitiveRoiFile: lung_dilated.roi
+
+SolElement: lung_init
+Attribute: SegParam: ThreshRangeGL
+GL_range: -2000 to -500
+End: ThreshRangeGL
+Attribute: SegParam: MinNumVoxels
+Min_num_voxels: 5
+End: MinNumVoxels
+Attribute: SearchArea: PartOf
+Related SolElement: lung_init1
+End: PartOf
+Attribute: Feature: Volume
+Fuzzy: [(10000, 0, 0)(1e+06, 1, 0)]
+End: Volume
+Attribute: InfParam: MatchAboveConf
+Confidence_threshold: 0.99
+End: MatchAboveConf
+Num_Cands: 0
+Num_Matched_Cands: 0
+MatchedPrimitiveRoiFile: lung_init.roi
+
+SolElement: lung_init1
+Attribute: SegParam: UseSubSampledImage
+X-step: 4
+Y-step: 4
+Z-step: 2
+End: UseSubSampledImage
+Attribute: SegParam: IncludeAllVoxels
+End: IncludeAllVoxels
+Attribute: SearchArea: MorphDilate
+Related SolElement: air_containing
+Structuring Element: Box (-4, -4, 0) (4, 4, 0)
+End: MorphDilate
+Num_Cands: 0
+Num_Matched_Cands: 0
+MatchedPrimitiveRoiFile: lung_init1.roi
+
+SolElement: air_containing
+Attribute: SegParam: ThreshRangeGL
+GL_range: -2000 to -200
+End: ThreshRangeGL
+Attribute: SegParam: UseSubSampledImage
+X-step: 4
+Y-step: 4
+Z-step: 2
+End: UseSubSampledImage
+Attribute: SearchArea: MorphErode
+Related SolElement: thorax_inside
+Structuring Element: Box (-4, -4, 0) (4, 4, 0)
+End: MorphErode
+Attribute: Feature: Area_perXY
+Fuzzy: [(3000, 0, 0)(10000, 1, 0)]
+End: Area_perXY
+Attribute: InfParam: MatchAboveConf
+Confidence_threshold: 0.3
+End: MatchAboveConf
+Num_Cands: 0
+Num_Matched_Cands: 0
+MatchedPrimitiveRoiFile: air_containing.roi
+
+SolElement: spine
+Attribute: SearchArea: PartOf
+Related SolElement: bone_init
+End: PartOf
+Attribute: SearchArea: BoxRelPlanarCentroid
+Related SolElement: thorax
+End: BoxRelPlanarCentroid
+Attribute: SearchArea: BoxRelPlanarCentroid
+Related SolElement: thorax
+End: BoxRelPlanarCentroid
+Attribute: Feature: PlanarCentroidOffsetY
+Related SolElement: thorax
+Fuzzy: [(0, 0, 0)(30, 1, 0)]
+End: PlanarCentroidOffsetY
+Attribute: Feature: Volume
+Fuzzy: [(1000, 0, 0)(5000, 1, 0)]
+End: Volume
+Attribute: InfParam: MatchAboveConf
+Confidence_threshold: 0.99
+End: MatchAboveConf
+Num_Cands: 0
+Num_Matched_Cands: 0
+MatchedPrimitiveRoiFile: spine.roi
+
+SolElement: bone
+Attribute: SearchArea: PartOf
+Related SolElement: bone_init
+End: PartOf
+Attribute: SearchArea: NotPartOf
+Related SolElement: mediastinum_init_1
+End: NotPartOf
+Attribute: Feature: Volume
+Fuzzy: [(1000, 0, 0)(10000, 1, 0)]
+End: Volume
+Attribute: InfParam: MatchAboveConf
+Confidence_threshold: 0.99
+End: MatchAboveConf
+Num_Cands: 0
+Num_Matched_Cands: 0
+MatchedPrimitiveRoiFile: bone.roi
+
+SolElement: bone_init
+Attribute: SegParam: ThreshRangeGL
+GL_range: 300 to 2000
+End: ThreshRangeGL
+Attribute: SegParam: MinNumVoxels
+Min_num_voxels: 1000
+End: MinNumVoxels
+Attribute: SearchArea: PartOf
+Related SolElement: thorax
+End: PartOf
+Attribute: Feature: Volume
+Fuzzy: [(1000, 0, 0)(10000, 1, 0)]
+End: Volume
+Attribute: InfParam: MatchAboveConf
+Confidence_threshold: 0.99
+End: MatchAboveConf
+Num_Cands: 0
+Num_Matched_Cands: 0
+MatchedPrimitiveRoiFile: bone_init.roi
+
+SolElement: thorax_inside
+Attribute: SegParam: UseSubSampledImage
+X-step: 4
+Y-step: 4
+Z-step: 2
+End: UseSubSampledImage
+Attribute: SegParam: IncludeAllVoxels
+End: IncludeAllVoxels
+Attribute: SearchArea: Inside2D
+Related SolElement: thorax
+End: Inside2D
+Num_Cands: 0
+Num_Matched_Cands: 0
+MatchedPrimitiveRoiFile: thorax_inside.roi
+
+SolElement: thorax
+Attribute: SegParam: ThreshRangeGL
+GL_range: -400 to 2000
+End: ThreshRangeGL
+Attribute: SegParam: UseSubSampledImage
+X-step: 4
+Y-step: 4
+Z-step: 2
+End: UseSubSampledImage
+Attribute: SegParam: MinNumVoxels
+Min_num_voxels: 10000
+End: MinNumVoxels
+Attribute: Feature: Area_perXY
+Fuzzy: [(10000, 0, 0)(50000, 1, 0)]
+End: Area_perXY
+Attribute: InfParam: MatchAboveConf
+Confidence_threshold: 0.1
+End: MatchAboveConf
+Num_Cands: 0
+Num_Matched_Cands: 0
+MatchedPrimitiveRoiFile: thorax.roi
+
