@@ -172,6 +172,7 @@ M:\apps\personal\wasil\medviewer\test\miu_viewer.py M:\apps\personal\wasil\trash
 M:\apps\personal\wasil\medviewer\test\miu_viewer.py C:\Users\wanwar\Desktop\Nandana\seg
 M:\apps\personal\wasil\medviewer\test\miu_viewer.py C:\Users\wanwar\Desktop\Nandana\seg "demo_mode"
 
+python3 /Users/nandana/MIUViewer/pythonTest/miu_viewer.py /Users/nandana/MIUViewer/pythonTest/sample/seg "demo_mode"
 """
 
 ### Initialize the GUI ###
@@ -334,7 +335,8 @@ class MainWindow(QMainWindow):
     def render(self):
         for v in self.views:
             v.window.Render()   # not general but probably fine
-            
+
+    """         
     ### Special for Nandana's set-up ###
     def load_image_demo(self):
         dicom_dir = r"\\dingo\data\PechinTest2\cad_aapm2017_batch_1\library\recon\10\8382bb95bd0127acac284c6dcec17e76_k1_st2.0\img\GAN-v1-ref-d100-k2-st1.0_8382bb95bd0127acac284c6dcec17e76_d10_k1_st2.0"
@@ -353,7 +355,7 @@ class MainWindow(QMainWindow):
         roi_foreground = roi.find(1, None)
         roi_info = dict(roi_foreground=roi_foreground)
         self.ui.axial.update_roi(roi_info,)
-
+    """
     def load_roi(self, roi):
         if qia_loaded:
             roi_foreground = roi.find(1, None)
@@ -413,8 +415,8 @@ class MainWindow(QMainWindow):
             self.reader = vtkDICOMImageReader()
             VTK_DATA_ROOT = vtkGetDataRoot()
             self.reader.SetDirectoryName(file)
-            # self.reader.SetFilePrefix(VTK_DATA_ROOT + "/Data/headsq/quarter") # UNIX FRIENDLY
-            self.reader.SetFilePrefix(VTK_DATA_ROOT + r"\Data\headsq\quarter")  # WINDOWS FRIENDLY
+            self.reader.SetFilePrefix(VTK_DATA_ROOT + "/Data/headsq/quarter") # UNIX FRIENDLY
+            # self.reader.SetFilePrefix(VTK_DATA_ROOT + r"\Data\headsq\quarter")  # WINDOWS FRIENDLY
             
             ### Extract 
             # TODO: double check that the image attributes are correct when using vtkDICOMimageReader
@@ -494,7 +496,8 @@ class MainWindow(QMainWindow):
         for v in self.views:
             v.update_image(imageData)
             if not v.viewer_initialized:
-                orientation = "axial"
+                # orientation = "axial"
+                orientation = "sagittal"
                 #   before this, orientation has of the viewer has not been defined yet.
                 #   aka it doesn't set the viewer orientation until the first image has loaded
                 v.init_view(orientation=orientation, center=self.viewer_center)
