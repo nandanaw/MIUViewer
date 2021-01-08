@@ -232,10 +232,13 @@ class PyView2D(QVTKRenderWindowInteractor):
                           0, 0, 0, 1))
         if orientation=="axial":
             self.set_orientation(self.axial)
+            self.orientation_index = 2
         elif orientation=="coronal":
             self.set_orientation(self.coronal)
+            self.orientation_index = 1
         elif orientation=="sagittal":
             self.set_orientation(self.sagittal)
+            self.orientation_index = 0
         else:
             raise("Orientation not properly selected.")
         self.viewer_initialized = True
@@ -451,7 +454,7 @@ class PyView2D(QVTKRenderWindowInteractor):
     ### Text stuff -- left unchanged ###
     def add_text(self):
         self.px_coord_text_prop.SetFontFamilyToCourier()
-        self.px_coord_text_prop.SetFontSize(20)
+        self.px_coord_text_prop.SetFontSize(5)
         self.px_coord_text_prop.SetVerticalJustificationToBottom()
         self.px_coord_text_prop.SetJustificationToLeft()
 
@@ -462,7 +465,7 @@ class PyView2D(QVTKRenderWindowInteractor):
         self.px_coord_text_actor.SetPosition(500, 10)
 
         self.world_coord_text_prop.SetFontFamilyToCourier()
-        self.world_coord_text_prop.SetFontSize(20)
+        self.world_coord_text_prop.SetFontSize(5)
         self.world_coord_text_prop.SetVerticalJustificationToBottom()
         self.world_coord_text_prop.SetJustificationToLeft()
 
@@ -473,7 +476,7 @@ class PyView2D(QVTKRenderWindowInteractor):
         self.world_coord_text_actor.SetPosition(500, 30)
 
         self.usage_text_prop.SetFontFamilyToCourier()
-        self.usage_text_prop.SetFontSize(14)
+        self.usage_text_prop.SetFontSize(2)
         self.usage_text_prop.SetVerticalJustificationToTop()
         self.usage_text_prop.SetJustificationToLeft()
 
@@ -506,16 +509,22 @@ class PyView2D(QVTKRenderWindowInteractor):
         (x_max, y_max, z_max) = self.get_extent_max()
 
         i = -1
+        spacing = self.get_spacing()[self.orientation_index]
+        max = self.get_extent_max()[self.orientation_index]
 
+        lowerBound = self.origin[self.orientation_index]
+        inc_value = inc*spacing
+        upperBound = floor(lowerBound+max*spacing)
+        """
         if reslice_axes == self.sagittal:
-            # lowerBound = self.origin[2] # hint: it's not 2. #TODO: set this for other reslice axes
+            lowerBound = self.origin[0] # hint: it's not 2. #TODO: set this for other reslice axes
             x_inc = inc*x_spacing
-            upperBound = floor(x_max*x_spacing)
+            upperBound = floor(lowerBound+x_max*x_spacing)
             i = 0
         elif reslice_axes == self.coronal:
-            # lowerBound = self.origin[2] # hint: it's not 2. #TODO: set this for other reslice axes
+            lowerBound = self.origin[1] # hint: it's not 2. #TODO: set this for other reslice axes
             y_inc = inc*y_spacing
-            upperBound = floor(y_max*y_spacing)
+            upperBound = floor(lowerBound+y_max*y_spacing)
             i = 1
         elif reslice_axes == self.axial:
             lowerBound = self.origin[2]
@@ -528,11 +537,13 @@ class PyView2D(QVTKRenderWindowInteractor):
         else:
             sys.stderr.write("ERROR: Invalid view orientation")
             exit(1)
+        """
 
         # slice through image by changing center
-        if (inc < 0 and center[i] > lowerBound) or (inc > 0 and center[i] < upperBound):
+        if (inc_value < 0 and center[self.orientation_index] > lowerBound) or (inc_value > 0 and center[self.orientation_index] < upperBound):
         # if True:
-            self.center = (center[0]+x_inc, center[1]+y_inc, center[2]+z_inc)
+        #     self.center = (center[0]+x_inc, center[1]+y_inc, center[2]+z_inc)
+            self.center[self.orientation_index] += inc_value
             self.update_centers(self.viewer_id)
             
     # Remove all ROIs
@@ -617,13 +628,17 @@ class PyView2D(QVTKRenderWindowInteractor):
 
         self.mouse_move_callback(obj, event)
         self.window.Render()
+        # 512x512x140
+        # 0.87x0.87x2.5
 
+        # 512*0.87=445
+        # 140*2.5=350
     ### Separate this because it might be used by other functions
     def _get_mouse_pos(self):
         (mouseX, mouseY) = self.interactor.GetEventPosition()
         Z_OFFSET = 0
         bounds = self.img.GetMapper().GetInput().GetBounds()    # move this somewhere else and define as class variable, only needs to be retrieved once
-        # print("bounds 1:", bounds)
+        print("bounds 1:", bounds)
         # print("displayextent",  self.img.GetMapper().GetInput().GetDisplayExtent())
         bounds = self.img.GetDisplayBounds()    # move this somewhere else and define as class variable, only needs to be retrieved once
         # print("bounds 2:", bounds)
@@ -651,10 +666,10 @@ class PyView2D(QVTKRenderWindowInteractor):
         # print(self.center)
         # print(self.origin)
         #mouseX and mouseY are the image positions in the overall window itself
-        posZ = self.center[2]
-        if posX < bounds[0] or posX > bounds[1] or posY < bounds[2] or posY > bounds[3]:
-            return None
-        
+        posZ = self.center[self.orientation_index]
+        # if posX < bounds[0] or posX > bounds[1] or posY < bounds[2] or posY > bounds[3]:
+            # return None
+        print("center", self.center)
             
         (xSpacing, ySpacing, zSpacing) = self.get_spacing()
         # print(self.get_spacing())
@@ -672,7 +687,7 @@ class PyView2D(QVTKRenderWindowInteractor):
                         image_pos[1]*ySpacing + self.origin[1],
                         posZ, # TODO: double check physical position for z
                         )
-                        
+        print(image_pos, phys_pos)
 
         # print(window_pos[0], image_pos[0], phys_pos[0])
         # return ( int((posX+self.center[0])/xSpacing - self.origin[0]), int((posY+self.center[1])/ySpacing - self.origin[1]), int(posZ-Z_OFFSET - self.origin[2]) )
